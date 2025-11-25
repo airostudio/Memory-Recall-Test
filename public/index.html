@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Recall Test - Discover Your Cognitive Power</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <div class="floating-shape shape4"></div>
+        <div class="floating-shape shape5"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="logo">
+            <div class="brain-icon">
+                <svg viewBox="0 0 100 100" class="brain-svg">
+                    <defs>
+                        <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF6B6B"/>
+                            <stop offset="50%" style="stop-color:#4ECDC4"/>
+                            <stop offset="100%" style="stop-color:#45B7D1"/>
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#brainGrad)" d="M50 10 C20 10 10 35 15 50 C10 60 15 80 35 85 C40 90 60 90 65 85 C85 80 90 60 85 50 C90 35 80 10 50 10 M30 40 Q35 30 50 35 M70 40 Q65 30 50 35 M35 55 Q50 70 65 55"/>
+                </svg>
+            </div>
+            <span class="logo-text">Memory<span class="highlight">Recall</span></span>
+        </div>
+        <nav class="main-nav">
+            <a href="#about">About</a>
+            <a href="#tests">Tests</a>
+            <a href="#pricing">Pricing</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="badge pulse">
+                <span class="fire">🔥</span> LIMITED TIME OFFER
+            </div>
+            <h1 class="hero-title">
+                Discover Your <span class="gradient-text">Memory Power</span>
+            </h1>
+            <p class="hero-subtitle">
+                Take our scientifically-designed cognitive assessment based on
+                <strong>ISLT, ADAS-Cog, Logical Memory, SKT & SAGE</strong> tests
+            </p>
+            <div class="price-tag">
+                <span class="original-price">$9.99</span>
+                <span class="current-price">$2.99</span>
+                <span class="save-badge">Save 70%!</span>
+            </div>
+            <button class="cta-button start-test-btn" onclick="startTest()">
+                <span class="btn-icon">🧠</span>
+                Start Your Memory Test
+                <span class="btn-arrow">→</span>
+            </button>
+            <div class="trust-badges">
+                <div class="trust-item">
+                    <span class="check-icon">✓</span> Scientifically Validated
+                </div>
+                <div class="trust-item">
+                    <span class="check-icon">✓</span> Instant Results
+                </div>
+                <div class="trust-item">
+                    <span class="check-icon">✓</span> Secure Payment
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="brain-3d">
+                <div class="neuron n1"></div>
+                <div class="neuron n2"></div>
+                <div class="neuron n3"></div>
+                <div class="neuron n4"></div>
+                <div class="neuron n5"></div>
+                <div class="pulse-ring r1"></div>
+                <div class="pulse-ring r2"></div>
+                <div class="pulse-ring r3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Categories Preview -->
+    <section class="test-categories" id="tests">
+        <h2 class="section-title">
+            <span class="icon">📊</span>
+            Comprehensive Memory Assessment
+        </h2>
+        <div class="categories-grid">
+            <div class="category-card card-islt">
+                <div class="card-icon">🛒</div>
+                <h3>ISLT Shopping List</h3>
+                <p>Remember items from an international shopping list</p>
+                <div class="card-badge">12 Items</div>
+            </div>
+            <div class="category-card card-adas">
+                <div class="card-icon">📝</div>
+                <h3>ADAS-Cog Word Recall</h3>
+                <p>Classic 10-word memory recall test</p>
+                <div class="card-badge">10 Words</div>
+            </div>
+            <div class="category-card card-lm">
+                <div class="card-icon">📖</div>
+                <h3>Logical Memory</h3>
+                <p>Story recall and comprehension test</p>
+                <div class="card-badge">2 Stories</div>
+            </div>
+            <div class="category-card card-skt">
+                <div class="card-icon">⏱️</div>
+                <h3>SKT Memory Test</h3>
+                <p>Timed object naming and recall</p>
+                <div class="card-badge">Speed Test</div>
+            </div>
+            <div class="category-card card-sage">
+                <div class="card-icon">🎯</div>
+                <h3>SAGE Assessment</h3>
+                <p>Self-administered cognitive evaluation</p>
+                <div class="card-badge">Complete</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content registration-modal">
+            <button class="close-modal" onclick="closeModal('registrationModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon rainbow-bg">
+                    <span>👤</span>
+                </div>
+                <h2>Start Your Memory Journey</h2>
+                <p>Enter your details to begin the assessment</p>
+            </div>
+            <form id="registrationForm" class="registration-form">
+                <div class="form-group">
+                    <label for="userName">
+                        <span class="label-icon">👤</span> Full Name
+                    </label>
+                    <input type="text" id="userName" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="userEmail">
+                        <span class="label-icon">📧</span> Email Address
+                    </label>
+                    <input type="email" id="userEmail" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPhone">
+                        <span class="label-icon">📱</span> Phone Number
+                    </label>
+                    <input type="tel" id="userPhone" name="phone" placeholder="+1 (555) 123-4567" required>
+                </div>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span>Begin Memory Test</span>
+                    <span class="btn-sparkle">✨</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Test Container -->
+    <div class="test-container" id="testContainer" style="display: none;">
+        <div class="test-header">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">0% Complete</span>
+            </div>
+            <div class="test-info">
+                <span class="test-name" id="currentTestName">ISLT Shopping List</span>
+                <span class="test-timer" id="testTimer">⏱️ --:--</span>
+            </div>
+        </div>
+
+        <!-- Test 1: ISLT Shopping List -->
+        <div class="test-section" id="testISLT" data-test="islt">
+            <div class="test-intro" id="isltIntro">
+                <div class="intro-icon">🛒</div>
+                <h2>International Shopping List Test</h2>
+                <p>You will see 12 items from a shopping list. Try to remember as many as you can!</p>
+                <div class="intro-cards">
+                    <div class="info-card">
+                        <span class="info-icon">👁️</span>
+                        <span>View for 30 seconds</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🧠</span>
+                        <span>Memorize the items</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">✏️</span>
+                        <span>Recall what you remember</span>
+                    </div>
+                </div>
+                <button class="start-section-btn" onclick="startISLT()">
+                    <span>Start Shopping List Test</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <div class="test-display" id="isltDisplay" style="display: none;">
+                <h3 class="display-title">📋 Memorize These Shopping Items</h3>
+                <div class="countdown-circle" id="isltCountdown">
+                    <span class="countdown-number">30</span>
+                </div>
+                <div class="shopping-grid" id="shoppingGrid">
+                    <!-- Items will be inserted by JS -->
+                </div>
+            </div>
+
+            <div class="test-recall" id="isltRecall" style="display: none;">
+                <h3 class="recall-title">🤔 Select the items you remember</h3>
+                <p class="recall-subtitle">Click on all the items that were in the shopping list</p>
+                <div class="recall-grid" id="recallGrid">
+                    <!-- Options will be inserted by JS -->
+                </div>
+                <button class="submit-recall-btn" onclick="submitISLT()">
+                    Submit Answers
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 2: ADAS-Cog Word Recall -->
+        <div class="test-section" id="testADAS" data-test="adas" style="display: none;">
+            <div class="test-intro" id="adasIntro">
+                <div class="intro-icon">📝</div>
+                <h2>ADAS-Cog 10-Word Recall</h2>
+                <p>You will see 10 words one at a time. Try to remember all of them!</p>
+                <div class="intro-cards">
+                    <div class="info-card">
+                        <span class="info-icon">📖</span>
+                        <span>See each word for 3 seconds</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🔄</span>
+                        <span>Words appear one by one</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">📝</span>
+                        <span>Type what you remember</span>
+                    </div>
+                </div>
+                <button class="start-section-btn" onclick="startADAS()">
+                    <span>Start Word Recall Test</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <div class="test-display" id="adasDisplay" style="display: none;">
+                <h3 class="display-title">📖 Remember This Word</h3>
+                <div class="word-display-container">
+                    <div class="word-card" id="wordCard">
+                        <span class="word-text" id="currentWord">APPLE</span>
+                    </div>
+                    <div class="word-progress">
+                        <span id="wordCounter">Word 1 of 10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-recall" id="adasRecall" style="display: none;">
+                <h3 class="recall-title">✏️ Type the words you remember</h3>
+                <p class="recall-subtitle">Enter each word and press Enter or click Add</p>
+                <div class="word-input-container">
+                    <input type="text" id="wordInput" placeholder="Type a word..." class="word-input">
+                    <button class="add-word-btn" onclick="addRecalledWord()">Add</button>
+                </div>
+                <div class="recalled-words" id="recalledWords">
+                    <!-- Words will be added here -->
+                </div>
+                <button class="submit-recall-btn" onclick="submitADAS()">
+                    Submit All Words
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 3: Logical Memory -->
+        <div class="test-section" id="testLM" data-test="lm" style="display: none;">
+            <div class="test-intro" id="lmIntro">
+                <div class="intro-icon">📖</div>
+                <h2>Logical Memory Test</h2>
+                <p>You will read a short story. Pay attention to the details!</p>
+                <div class="intro-cards">
+                    <div class="info-card">
+                        <span class="info-icon">📚</span>
+                        <span>Read the story carefully</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🎯</span>
+                        <span>Remember key details</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">❓</span>
+                        <span>Answer questions about it</span>
+                    </div>
+                </div>
+                <button class="start-section-btn" onclick="startLM()">
+                    <span>Start Story Memory Test</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <div class="test-display" id="lmDisplay" style="display: none;">
+                <h3 class="display-title">📖 Read This Story Carefully</h3>
+                <div class="countdown-circle" id="lmCountdown">
+                    <span class="countdown-number">45</span>
+                </div>
+                <div class="story-container">
+                    <div class="story-card" id="storyCard">
+                        <!-- Story will be inserted -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-recall" id="lmRecall" style="display: none;">
+                <h3 class="recall-title">❓ Answer These Questions</h3>
+                <div class="questions-container" id="lmQuestions">
+                    <!-- Questions will be inserted -->
+                </div>
+                <button class="submit-recall-btn" onclick="submitLM()">
+                    Submit Answers
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 4: SKT Speed Test -->
+        <div class="test-section" id="testSKT" data-test="skt" style="display: none;">
+            <div class="test-intro" id="sktIntro">
+                <div class="intro-icon">⏱️</div>
+                <h2>SKT Speed Memory Test</h2>
+                <p>Test your speed and memory with objects! Quick naming and recall.</p>
+                <div class="intro-cards">
+                    <div class="info-card">
+                        <span class="info-icon">👀</span>
+                        <span>See objects quickly</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">⚡</span>
+                        <span>Name them fast</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🎯</span>
+                        <span>Speed matters</span>
+                    </div>
+                </div>
+                <button class="start-section-btn" onclick="startSKT()">
+                    <span>Start Speed Test</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <div class="test-display" id="sktDisplay" style="display: none;">
+                <h3 class="display-title">⚡ Name This Object Quickly!</h3>
+                <div class="speed-timer" id="speedTimer">0.00s</div>
+                <div class="object-display" id="objectDisplay">
+                    <!-- Object emoji will appear here -->
+                </div>
+                <div class="naming-options" id="namingOptions">
+                    <!-- Options will be inserted -->
+                </div>
+            </div>
+
+            <div class="test-recall" id="sktRecall" style="display: none;">
+                <h3 class="recall-title">🔄 What objects did you see?</h3>
+                <p class="recall-subtitle">Select all the objects you remember seeing</p>
+                <div class="skt-recall-grid" id="sktRecallGrid">
+                    <!-- Options will be inserted -->
+                </div>
+                <button class="submit-recall-btn" onclick="submitSKT()">
+                    Submit Answers
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 5: SAGE Assessment -->
+        <div class="test-section" id="testSAGE" data-test="sage" style="display: none;">
+            <div class="test-intro" id="sageIntro">
+                <div class="intro-icon">🎯</div>
+                <h2>SAGE Cognitive Assessment</h2>
+                <p>A comprehensive self-assessment covering multiple cognitive areas.</p>
+                <div class="intro-cards">
+                    <div class="info-card">
+                        <span class="info-icon">🧮</span>
+                        <span>Problem solving</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🔤</span>
+                        <span>Language skills</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🎨</span>
+                        <span>Visual recognition</span>
+                    </div>
+                </div>
+                <button class="start-section-btn" onclick="startSAGE()">
+                    <span>Start SAGE Assessment</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <div class="test-display" id="sageDisplay" style="display: none;">
+                <div class="sage-question-container">
+                    <div class="sage-question-header">
+                        <span class="question-number" id="sageQuestionNum">Question 1 of 8</span>
+                    </div>
+                    <div class="sage-question" id="sageQuestion">
+                        <!-- Question content -->
+                    </div>
+                    <div class="sage-options" id="sageOptions">
+                        <!-- Options will be inserted -->
+                    </div>
+                    <button class="next-question-btn" onclick="nextSAGEQuestion()">
+                        Next Question →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Complete -->
+        <div class="test-complete" id="testComplete" style="display: none;">
+            <div class="complete-content">
+                <div class="complete-icon">🎉</div>
+                <h2>Test Complete!</h2>
+                <p>Your memory assessment is ready.</p>
+                <div class="score-preview">
+                    <div class="score-circle">
+                        <span class="score-question">?</span>
+                    </div>
+                    <p>Pay to unlock your detailed results</p>
+                </div>
+                <div class="payment-prompt">
+                    <div class="price-display">
+                        <span class="was-price">Was $9.99</span>
+                        <span class="now-price">Now $2.99</span>
+                    </div>
+                    <p class="payment-info">One-time payment • Results emailed instantly</p>
+                    <button class="pay-button" onclick="initiatePayment()">
+                        <span class="lock-icon">🔓</span>
+                        Unlock My Results - $2.99
+                    </button>
+                    <div class="secure-badge">
+                        <span>🔒</span> Secure payment powered by Stripe
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content payment-modal">
+            <button class="close-modal" onclick="closeModal('paymentModal')">&times;</button>
+            <div class="payment-header">
+                <h2>🔓 Unlock Your Results</h2>
+                <div class="payment-price">
+                    <span class="strikethrough">$9.99</span>
+                    <span class="final-price">$2.99</span>
+                </div>
+            </div>
+            <div class="payment-benefits">
+                <div class="benefit">✅ Detailed memory score analysis</div>
+                <div class="benefit">✅ Comparison with age group</div>
+                <div class="benefit">✅ Personalized recommendations</div>
+                <div class="benefit">✅ Results sent to your email</div>
+            </div>
+            <form id="payment-form">
+                <div id="card-element" class="stripe-input">
+                    <!-- Stripe Elements will be inserted here -->
+                </div>
+                <div id="card-errors" class="card-errors" role="alert"></div>
+                <button type="submit" id="submit-payment" class="stripe-button">
+                    <span id="button-text">Pay $2.99</span>
+                    <span id="spinner" class="spinner hidden"></span>
+                </button>
+            </form>
+            <div class="payment-footer">
+                <img src="https://cdn.brandfolder.io/KGT2DTA4/at/8vbr8k4mr5xjwk4hxq4t9vs/Powered_by_Stripe_-_blurple.svg" alt="Powered by Stripe" class="stripe-logo">
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success-modal">
+            <div class="success-animation">
+                <div class="checkmark">✓</div>
+            </div>
+            <h2>Payment Successful!</h2>
+            <p>Your detailed results have been sent to:</p>
+            <p class="email-sent" id="emailSentTo"></p>
+            <div class="success-message">
+                <p>Check your inbox for your comprehensive memory assessment report!</p>
+            </div>
+            <div class="more-tests-promo">
+                <h3>🎯 Discover More About Your Mind</h3>
+                <p>Explore our collection of 20+ cognitive assessments</p>
+                <button class="view-tests-btn" onclick="showMoreTests()">
+                    View All Tests →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Tests Modal -->
+    <div class="modal" id="moreTestsModal">
+        <div class="modal-content more-tests-modal">
+            <button class="close-modal" onclick="closeModal('moreTestsModal')">&times;</button>
+            <div class="more-tests-header">
+                <h2>🧠 Explore Our Test Collection</h2>
+                <p>20 specialized cognitive assessments to discover your mental strengths</p>
+            </div>
+            <div class="tests-grid" id="testsGrid">
+                <!-- Tests will be inserted by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">🧠 MemoryRecall</span>
+                <p>Scientifically-designed cognitive assessments</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-secure">
+                <span>🔒 Secure & Confidential</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Memory Recall Test. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
