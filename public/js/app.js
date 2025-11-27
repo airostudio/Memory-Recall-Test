@@ -1,6 +1,6 @@
 /**
- * Logical Reasoning Test Application
- * World-class aptitude assessment for logical thinking and problem-solving
+ * Emotional Intelligence (EQ) Test Application
+ * Comprehensive assessment for emotional awareness and management
  */
 
 // ============================================
@@ -13,13 +13,13 @@ const state = {
         phone: ''
     },
     currentTest: 0,
-    tests: ['abstract', 'deductive', 'pattern', 'verbal', 'spatial'],
+    tests: ['selfawareness', 'selfregulation', 'motivation', 'empathy', 'socialskills'],
     scores: {
-        abstract: { correct: 0, total: 10, time: 0 },
-        deductive: { correct: 0, total: 8, time: 0 },
-        pattern: { correct: 0, total: 8, time: 0 },
-        verbal: { correct: 0, total: 6, time: 0 },
-        spatial: { correct: 0, total: 8, time: 0 }
+        selfawareness: { points: 0, total: 32, time: 0 },
+        selfregulation: { points: 0, total: 32, time: 0 },
+        motivation: { points: 0, total: 32, time: 0 },
+        empathy: { points: 0, total: 32, time: 0 },
+        socialskills: { points: 0, total: 32, time: 0 }
     },
     currentQuestion: 0,
     testStartTime: null,
@@ -28,564 +28,502 @@ const state = {
 };
 
 // ============================================
-// SVG Shape Generators
+// Self-Awareness Questions
 // ============================================
 
-const colors = {
-    red: '#FF6B6B',
-    blue: '#4ECDC4',
-    purple: '#667eea',
-    orange: '#FFA502',
-    green: '#26de81',
-    pink: '#F093FB',
-    yellow: '#FECA57',
-    cyan: '#45B7D1'
-};
-
-function createTriangle(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <polygon points="50,10 90,90 10,90" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createSquare(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <rect x="15" y="15" width="70" height="70" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createCircle(color) {
-    return `<svg viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="40" fill="${color}"/>
-    </svg>`;
-}
-
-function createDiamond(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <polygon points="50,10 90,50 50,90 10,50" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createPentagon(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <polygon points="50,10 95,40 80,90 20,90 5,40" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createHexagon(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createStar(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <polygon points="50,5 61,40 98,40 68,62 79,97 50,75 21,97 32,62 2,40 39,40" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createArrow(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <polygon points="50,10 80,50 65,50 65,90 35,90 35,50 20,50" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createCross(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <path d="M35,10 L65,10 L65,35 L90,35 L90,65 L65,65 L65,90 L35,90 L35,65 L10,65 L10,35 L35,35 Z" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-function createLShape(color, rotation = 0) {
-    return `<svg viewBox="0 0 100 100">
-        <path d="M20,10 L50,10 L50,60 L90,60 L90,90 L20,90 Z" fill="${color}" transform="rotate(${rotation} 50 50)"/>
-    </svg>`;
-}
-
-// ============================================
-// Abstract Reasoning Questions (Shape Patterns)
-// ============================================
-
-const abstractQuestions = [
+const selfAwarenessQuestions = [
     {
-        // Pattern: Size increases
-        sequence: [
-            createCircle(colors.blue),
-            `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="25" fill="${colors.blue}"/></svg>`,
-            `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="${colors.blue}"/></svg>`,
-        ],
+        scenario: "You're in a meeting and suddenly feel your heart racing and palms sweating when asked to present an idea unexpectedly.",
+        question: "How would you handle this situation?",
         options: [
-            `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="${colors.blue}"/></svg>`,
-            `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="20" fill="${colors.blue}"/></svg>`,
-            createSquare(colors.blue),
-            `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="${colors.red}"/></svg>`,
+            { text: "Ignore the physical sensations and try to power through without acknowledging how you feel", points: 1 },
+            { text: "Recognize that you're feeling anxious, take a deep breath, and acknowledge that this is a normal response to unexpected pressure", points: 4 },
+            { text: "Refuse to present because you're not prepared and leave the room", points: 1 },
+            { text: "Get angry at whoever put you on the spot", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        // Pattern: Rotation +90 degrees
-        sequence: [
-            createTriangle(colors.red, 0),
-            createTriangle(colors.red, 90),
-            createTriangle(colors.red, 180),
-        ],
+        scenario: "After receiving feedback that your recent project didn't meet expectations, you notice yourself feeling defensive and irritable for the rest of the day.",
+        question: "What's the most emotionally intelligent response?",
         options: [
-            createTriangle(colors.red, 270),
-            createTriangle(colors.red, 0),
-            createTriangle(colors.blue, 270),
-            createSquare(colors.red, 270),
+            { text: "Tell yourself the feedback was unfair and dismiss it entirely", points: 1 },
+            { text: "Recognize your defensive feelings, understand they're protecting your ego, and reflect on what you can learn from the feedback", points: 4 },
+            { text: "Vent to coworkers about how wrong the feedback was", points: 1 },
+            { text: "Work harder without addressing how you feel about the criticism", points: 2 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        // Pattern: Shape sequence (circle, square, triangle, repeat)
-        sequence: [
-            createCircle(colors.purple),
-            createSquare(colors.purple),
-            createTriangle(colors.purple),
-            createCircle(colors.purple),
-        ],
+        scenario: "You find yourself constantly checking your phone and struggling to focus during family dinner time.",
+        question: "How do you interpret this behavior?",
         options: [
-            createSquare(colors.purple),
-            createTriangle(colors.purple),
-            createCircle(colors.purple),
-            createDiamond(colors.purple),
+            { text: "It's normal - everyone does this nowadays", points: 1 },
+            { text: "Recognize this might indicate anxiety about work or difficulty being present, and explore what's driving this need for constant connectivity", points: 4 },
+            { text: "Blame your job for being too demanding", points: 1 },
+            { text: "Try to hide your phone use from family members", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        // Pattern: Color change (red, blue, red, blue)
-        sequence: [
-            createSquare(colors.red),
-            createSquare(colors.blue),
-            createSquare(colors.red),
-        ],
+        scenario: "You've been procrastinating on an important task for weeks and the deadline is approaching.",
+        question: "What insight does this procrastination reveal?",
         options: [
-            createSquare(colors.blue),
-            createSquare(colors.red),
-            createSquare(colors.green),
-            createCircle(colors.blue),
+            { text: "You're just lazy and need more discipline", points: 1 },
+            { text: "The task might be triggering fear of failure, perfectionism, or feeling overwhelmed - understanding this can help address the root cause", points: 4 },
+            { text: "The deadline isn't realistic and should be extended", points: 2 },
+            { text: "You work better under pressure anyway", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        // Pattern: Adding sides (triangle, square, pentagon, hexagon)
-        sequence: [
-            createTriangle(colors.orange),
-            createSquare(colors.orange),
-            createPentagon(colors.orange),
-        ],
+        scenario: "During a conversation with your partner, you notice yourself becoming increasingly short and dismissive.",
+        question: "How would you respond?",
         options: [
-            createHexagon(colors.orange),
-            createCircle(colors.orange),
-            createTriangle(colors.orange),
-            createStar(colors.orange),
+            { text: "Continue the conversation as usual - your partner is probably being too sensitive", points: 1 },
+            { text: "Pause and acknowledge: 'I notice I'm getting defensive. Can we take a break and continue when I'm in a better headspace?'", points: 4 },
+            { text: "End the conversation abruptly and walk away", points: 1 },
+            { text: "Apologize repeatedly without understanding why you're feeling this way", points: 2 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        // Pattern: Alternating shapes with rotation
-        sequence: [
-            createArrow(colors.green, 0),
-            createArrow(colors.green, 90),
-            createArrow(colors.green, 180),
-        ],
+        scenario: "You received a promotion, but instead of feeling happy, you're experiencing anxiety and self-doubt.",
+        question: "How do you interpret these feelings?",
         options: [
-            createArrow(colors.green, 270),
-            createArrow(colors.green, 0),
-            createArrow(colors.red, 270),
-            createTriangle(colors.green, 270),
+            { text: "Something must be wrong - you should feel happy about good news", points: 1 },
+            { text: "Recognize this might be 'imposter syndrome' - a common response to success that doesn't mean you're undeserving", points: 4 },
+            { text: "Consider turning down the promotion since you don't feel ready", points: 1 },
+            { text: "Push down these feelings and act confident even if you don't feel it", points: 2 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        // Pattern: Diamond rotation
-        sequence: [
-            createDiamond(colors.cyan, 0),
-            createDiamond(colors.cyan, 45),
-            createDiamond(colors.cyan, 90),
-        ],
+        scenario: "You often find yourself agreeing to commitments you don't want to take on, then feeling resentful afterward.",
+        question: "What does this pattern suggest about your self-awareness?",
         options: [
-            createDiamond(colors.cyan, 135),
-            createDiamond(colors.cyan, 0),
-            createSquare(colors.cyan, 135),
-            createDiamond(colors.red, 135),
+            { text: "You're a helpful person and should continue saying yes", points: 1 },
+            { text: "This pattern indicates difficulty recognizing your own needs and boundaries in the moment - learning to pause before responding could help", points: 4 },
+            { text: "Other people are too demanding of your time", points: 1 },
+            { text: "You should start saying no to everything to protect yourself", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        // Pattern: Star with color change
-        sequence: [
-            createStar(colors.yellow),
-            createStar(colors.orange),
-            createStar(colors.red),
-        ],
+        scenario: "When someone asks how you're feeling, you often respond with 'fine' even when you're not.",
+        question: "What would help you become more self-aware?",
         options: [
-            createStar(colors.pink),
-            createStar(colors.yellow),
-            createCircle(colors.pink),
-            createStar(colors.blue),
+            { text: "Keep saying 'fine' - detailed emotional discussions are unnecessary", points: 1 },
+            { text: "Practice identifying and naming your emotions more specifically - developing a richer emotional vocabulary can increase self-understanding", points: 4 },
+            { text: "Start sharing all your problems with anyone who asks", points: 1 },
+            { text: "Avoid people who ask about your feelings", points: 1 }
         ],
-        answer: 0
-    },
-    {
-        // Pattern: Cross rotation
-        sequence: [
-            createCross(colors.blue, 0),
-            createCross(colors.blue, 45),
-            createCross(colors.blue, 90),
-        ],
-        options: [
-            createCross(colors.blue, 135),
-            createCross(colors.blue, 0),
-            createCross(colors.red, 135),
-            createStar(colors.blue, 135),
-        ],
-        answer: 0
-    },
-    {
-        // Pattern: L-shape rotation
-        sequence: [
-            createLShape(colors.purple, 0),
-            createLShape(colors.purple, 90),
-            createLShape(colors.purple, 180),
-        ],
-        options: [
-            createLShape(colors.purple, 270),
-            createLShape(colors.purple, 0),
-            createLShape(colors.red, 270),
-            createSquare(colors.purple, 270),
-        ],
-        answer: 0
+        correctIndex: 1
     }
 ];
 
 // ============================================
-// Deductive Reasoning Questions
+// Self-Regulation Questions
 // ============================================
 
-const deductiveQuestions = [
+const selfRegulationQuestions = [
     {
-        premises: [
-            "All dogs are mammals.",
-            "All mammals are warm-blooded."
-        ],
+        scenario: "You receive an email that feels like a personal attack on your work. Your first impulse is to fire back an angry response.",
+        question: "What's the best approach?",
         options: [
-            "All dogs are warm-blooded.",
-            "All warm-blooded animals are dogs.",
-            "Some mammals are not warm-blooded.",
-            "No dogs are warm-blooded."
+            { text: "Send a measured response immediately to show you won't be pushed around", points: 1 },
+            { text: "Wait before responding - draft a reply but don't send it. Review it later when you're calmer, and respond professionally", points: 4 },
+            { text: "Forward the email to your manager to show how unprofessional the sender is", points: 1 },
+            { text: "Ignore the email completely and never respond", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        premises: [
-            "If it rains, the ground gets wet.",
-            "The ground is wet."
-        ],
+        scenario: "You're stuck in heavy traffic and running late for an important meeting. You feel your frustration building.",
+        question: "How do you manage this situation?",
         options: [
-            "It definitely rained.",
-            "The ground might have been watered.",
-            "It did not rain.",
-            "We cannot conclude whether it rained."
+            { text: "Honk aggressively and weave between lanes to save time", points: 1 },
+            { text: "Accept what you can't control, take deep breaths, call ahead to explain, and use the time to mentally prepare for the meeting", points: 4 },
+            { text: "Cancel the meeting entirely - you're too stressed now", points: 1 },
+            { text: "Arrive late and blame the traffic loudly so everyone knows it wasn't your fault", points: 1 }
         ],
-        answer: 3
+        correctIndex: 1
     },
     {
-        premises: [
-            "All students in Class A passed the exam.",
-            "John is a student in Class A."
-        ],
+        scenario: "During a heated argument with a family member, you feel the urge to say something you know will hurt them deeply.",
+        question: "What would you do?",
         options: [
-            "John passed the exam.",
-            "John might have failed the exam.",
-            "John is the best student.",
-            "Some students in Class A failed."
+            { text: "Say it - they need to hear the truth and you're just being honest", points: 1 },
+            { text: "Recognize this urge as a sign you need to step away. Say: 'I need a moment to cool down before we continue this conversation'", points: 4 },
+            { text: "Say something less hurtful but still critical to get your point across", points: 2 },
+            { text: "Give them the silent treatment instead", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        premises: [
-            "No reptiles are warm-blooded.",
-            "All snakes are reptiles."
-        ],
+        scenario: "You've been working on healthy eating, but after a stressful day, you find yourself craving comfort food.",
+        question: "How do you handle this?",
         options: [
-            "All snakes are warm-blooded.",
-            "No snakes are warm-blooded.",
-            "Some snakes are warm-blooded.",
-            "Snakes might be warm-blooded."
+            { text: "Give in completely - you deserve it after such a hard day", points: 1 },
+            { text: "Acknowledge the craving, understand it's an emotional response to stress, and find alternative ways to comfort yourself while honoring your goals", points: 4 },
+            { text: "Strictly deny yourself any comfort food and feel miserable about it", points: 2 },
+            { text: "Binge now and promise to start over tomorrow", points: 1 }
         ],
-        answer: 1
+        correctIndex: 1
     },
     {
-        premises: [
-            "All prime numbers greater than 2 are odd.",
-            "17 is a prime number greater than 2."
-        ],
+        scenario: "A colleague takes credit for your idea in a team meeting. You feel angry and want to call them out publicly.",
+        question: "What's the best course of action?",
         options: [
-            "17 is even.",
-            "17 is odd.",
-            "17 might be even or odd.",
-            "We cannot determine if 17 is odd."
+            { text: "Interrupt and correct them in front of everyone", points: 1 },
+            { text: "Control your immediate reaction, then address it privately with the colleague after the meeting to understand what happened", points: 4 },
+            { text: "Silently vow to never share ideas with that person again", points: 2 },
+            { text: "Complain to other colleagues about what happened", points: 1 }
         ],
-        answer: 1
+        correctIndex: 1
     },
     {
-        premises: [
-            "Some birds can fly.",
-            "Penguins are birds."
-        ],
+        scenario: "You wake up in a bad mood for no apparent reason and it's affecting your interactions with others.",
+        question: "How do you handle this?",
         options: [
-            "Penguins can definitely fly.",
-            "Penguins cannot fly.",
-            "Penguins may or may not fly based on this information.",
-            "All birds can fly."
+            { text: "Continue as normal - others should just deal with your mood", points: 1 },
+            { text: "Acknowledge your mood, warn others if needed ('I'm having an off day'), and use healthy strategies to reset your emotional state", points: 4 },
+            { text: "Isolate yourself completely until the mood passes", points: 2 },
+            { text: "Force yourself to act cheerful even though you feel terrible inside", points: 2 }
         ],
-        answer: 2
+        correctIndex: 1
     },
     {
-        premises: [
-            "If a shape has four equal sides and four right angles, it is a square.",
-            "Shape X has four equal sides and four right angles."
-        ],
+        scenario: "You're facing a major deadline and suddenly feel overwhelmed with anxiety about whether you can complete it.",
+        question: "What strategy would help most?",
         options: [
-            "Shape X is a rectangle.",
-            "Shape X is a square.",
-            "Shape X might be a square.",
-            "Shape X is a rhombus."
+            { text: "Work around the clock without breaks to finish faster", points: 1 },
+            { text: "Break the task into smaller, manageable parts, acknowledge the anxiety, and focus on one step at a time", points: 4 },
+            { text: "Ask for an extension without attempting the work", points: 1 },
+            { text: "Distract yourself with other activities until the last minute", points: 1 }
         ],
-        answer: 1
+        correctIndex: 1
     },
     {
-        premises: [
-            "All managers attended the meeting.",
-            "Sarah did not attend the meeting."
-        ],
+        scenario: "Someone makes a political comment you strongly disagree with at a social gathering.",
+        question: "How do you respond?",
         options: [
-            "Sarah is a manager.",
-            "Sarah is not a manager.",
-            "Sarah might be a manager.",
-            "The meeting was canceled."
+            { text: "Argue passionately to change their mind", points: 1 },
+            { text: "Manage your emotional reaction, decide if engaging is worthwhile, and if so, share your perspective calmly without attacking their character", points: 4 },
+            { text: "Make a sarcastic comment and walk away", points: 1 },
+            { text: "Agree with them to avoid conflict even though you disagree", points: 1 }
         ],
-        answer: 1
+        correctIndex: 1
     }
 ];
 
 // ============================================
-// Pattern Recognition Questions (Number/Letter Sequences)
+// Motivation Questions
 // ============================================
 
-const patternQuestions = [
+const motivationQuestions = [
     {
-        sequence: [2, 4, 6, 8],
-        type: 'number',
-        options: [10, 9, 12, 16],
-        answer: 0
+        scenario: "You've applied for several jobs but received rejections. You're starting to doubt your abilities.",
+        question: "How do you maintain motivation?",
+        options: [
+            { text: "Give up on job searching - it's clearly not meant to be", points: 1 },
+            { text: "View each rejection as feedback, refine your approach, and remember that persistence is key to success. Focus on what you can learn and improve", points: 4 },
+            { text: "Lower your standards and apply to any job available", points: 2 },
+            { text: "Blame the job market or hiring managers for being unfair", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        sequence: [1, 4, 9, 16],
-        type: 'number',
-        options: [20, 25, 32, 36],
-        answer: 1
+        scenario: "You've been working on a personal goal (fitness, learning a skill, etc.) for months but progress is slower than expected.",
+        question: "What keeps you going?",
+        options: [
+            { text: "The goal was probably unrealistic anyway - time to give up", points: 1 },
+            { text: "Focus on the progress you have made, adjust expectations if needed, and find intrinsic enjoyment in the process rather than just the outcome", points: 4 },
+            { text: "Push harder with extreme measures to catch up", points: 1 },
+            { text: "Find a completely different goal that might be easier", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        sequence: [3, 6, 12, 24],
-        type: 'number',
-        options: [36, 48, 30, 72],
-        answer: 1
+        scenario: "Your current job is secure but unfulfilling. An opportunity arises that excites you but involves risk.",
+        question: "How do you approach this decision?",
+        options: [
+            { text: "Stay in the safe position - fulfillment is overrated", points: 1 },
+            { text: "Weigh the risks thoughtfully, consider your values and long-term goals, and recognize that meaningful growth often requires some risk", points: 4 },
+            { text: "Jump immediately without any planning", points: 1 },
+            { text: "Wait for a perfect opportunity with no risk", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        sequence: ['A', 'C', 'E', 'G'],
-        type: 'letter',
-        options: ['H', 'I', 'J', 'K'],
-        answer: 1
+        scenario: "You set a New Year's resolution but by March, your enthusiasm has faded significantly.",
+        question: "How do you reconnect with your motivation?",
+        options: [
+            { text: "Accept that resolutions never work and abandon it", points: 1 },
+            { text: "Revisit why this goal matters to you, break it into smaller milestones, and create systems rather than relying on willpower alone", points: 4 },
+            { text: "Feel guilty about lacking discipline and push harder", points: 2 },
+            { text: "Make the same resolution next year instead", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        sequence: [1, 1, 2, 3, 5],
-        type: 'number',
-        options: [6, 7, 8, 10],
-        answer: 2
+        scenario: "A project you've invested significant time in is cancelled due to circumstances beyond your control.",
+        question: "How do you respond emotionally?",
+        options: [
+            { text: "Feel completely devastated and question all your future efforts", points: 1 },
+            { text: "Allow yourself to feel disappointed, then focus on the skills and experience gained, and channel your energy into new opportunities", points: 4 },
+            { text: "Pretend you never cared about the project anyway", points: 1 },
+            { text: "Blame whoever made the decision to cancel", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        sequence: [100, 50, 25, 12.5],
-        type: 'number',
-        options: [6.25, 6, 10, 5],
-        answer: 0
+        scenario: "You see others achieving success faster than you in similar pursuits.",
+        question: "How do you maintain your drive?",
+        options: [
+            { text: "Compare yourself constantly and feel increasingly inadequate", points: 1 },
+            { text: "Focus on your own journey, learn from others' successes without envy, and remember that everyone's path is unique", points: 4 },
+            { text: "Copy exactly what successful people do without adapting to your situation", points: 2 },
+            { text: "Dismiss their success as luck or unfair advantages", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        sequence: ['Z', 'X', 'V', 'T'],
-        type: 'letter',
-        options: ['S', 'R', 'Q', 'P'],
-        answer: 1
+        scenario: "You're facing a challenging task that you've failed at before.",
+        question: "What mindset helps you approach it again?",
+        options: [
+            { text: "You failed before so you'll probably fail again", points: 1 },
+            { text: "View the previous failure as learning experience, identify what went wrong, and approach with curiosity about what you can do differently", points: 4 },
+            { text: "Convince yourself this time is completely different with no connection to the past", points: 2 },
+            { text: "Avoid it entirely to prevent another failure", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        sequence: [2, 6, 18, 54],
-        type: 'number',
-        options: [108, 162, 72, 216],
-        answer: 1
+        scenario: "Your work doesn't receive external recognition even though you've done your best.",
+        question: "How do you stay motivated?",
+        options: [
+            { text: "Stop putting in effort since no one notices anyway", points: 1 },
+            { text: "Find intrinsic satisfaction in doing quality work regardless of external recognition, while also communicating your value more effectively", points: 4 },
+            { text: "Start doing only the minimum required", points: 1 },
+            { text: "Demand recognition from others more forcefully", points: 1 }
+        ],
+        correctIndex: 1
     }
 ];
 
 // ============================================
-// Verbal Reasoning Questions
+// Empathy Questions
 // ============================================
 
-const verbalQuestions = [
+const empathyQuestions = [
     {
-        passage: "The company announced record profits for the third quarter. Revenue increased by 25% compared to the same period last year. The CEO attributed this success to the launch of their new product line and expansion into Asian markets.",
-        statement: "The company's profits increased due to their new product line.",
-        options: ['True', 'False', 'Cannot Say'],
-        answer: 0
+        scenario: "A friend is upset about something that seems minor to you (like losing a small item).",
+        question: "How do you respond?",
+        options: [
+            { text: "Tell them it's not a big deal and they should get over it", points: 1 },
+            { text: "Recognize that the item might have emotional significance, validate their feelings, and ask what the item meant to them", points: 4 },
+            { text: "Help them find the item without acknowledging their emotions", points: 2 },
+            { text: "Change the subject to distract them", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        passage: "Studies show that regular exercise improves mental health. Participants who exercised for 30 minutes daily reported lower stress levels. The research was conducted over a six-month period with 500 participants.",
-        statement: "All 500 participants experienced lower stress levels.",
-        options: ['True', 'False', 'Cannot Say'],
-        answer: 2
+        scenario: "A colleague seems withdrawn and is performing below their usual standard at work.",
+        question: "What would you do?",
+        options: [
+            { text: "Complain to management about their performance", points: 1 },
+            { text: "Find a private moment to check in genuinely - ask how they're doing and if there's anything you can support with", points: 4 },
+            { text: "Avoid them to not get involved in their problems", points: 1 },
+            { text: "Gossip with other colleagues about what might be wrong", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        passage: "The museum will be closed for renovations from January to March. During this period, some exhibits will be moved to the city's cultural center. The renovation will include upgrading the lighting systems and installing new climate control.",
-        statement: "Visitors cannot see any museum exhibits during the renovation period.",
-        options: ['True', 'False', 'Cannot Say'],
-        answer: 1
+        scenario: "Someone from a different cultural background explains a tradition that seems strange to you.",
+        question: "How do you engage?",
+        options: [
+            { text: "Point out why the tradition doesn't make logical sense", points: 1 },
+            { text: "Ask curious questions to understand the meaning and history behind the tradition, seeking to appreciate their perspective", points: 4 },
+            { text: "Politely nod while thinking it's odd", points: 2 },
+            { text: "Share why your own traditions are better", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        passage: "The new traffic regulations require all cyclists to wear helmets in urban areas. Fines for non-compliance will be $50 for first-time offenders and $100 for repeat violations. The law comes into effect on April 1st.",
-        statement: "Cyclists in rural areas are not required to wear helmets under the new regulations.",
-        options: ['True', 'False', 'Cannot Say'],
-        answer: 2
+        scenario: "Your partner is stressed about work and snaps at you when you ask an innocent question.",
+        question: "How do you interpret and respond?",
+        options: [
+            { text: "Snap back - they shouldn't take their stress out on you", points: 1 },
+            { text: "Recognize their stress isn't really about you, give them space, and later gently express that while you understand they're stressed, you'd appreciate kinder communication", points: 4 },
+            { text: "Give them the silent treatment to show they hurt you", points: 1 },
+            { text: "Apologize for bothering them even though you did nothing wrong", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        passage: "The technology conference attracted over 5,000 attendees from 30 countries. The keynote speech focused on artificial intelligence in healthcare. Several companies announced partnerships during the event.",
-        statement: "The conference had attendees from fewer than 25 countries.",
-        options: ['True', 'False', 'Cannot Say'],
-        answer: 1
+        scenario: "A team member disagrees with your idea in a meeting, and you feel defensive.",
+        question: "How do you handle this?",
+        options: [
+            { text: "Argue your point more forcefully to win", points: 1 },
+            { text: "Try to understand their perspective - ask what concerns they have and genuinely consider whether their points might improve your idea", points: 4 },
+            { text: "Take it personally and disengage from the discussion", points: 1 },
+            { text: "Agree with them just to end the disagreement", points: 1 }
+        ],
+        correctIndex: 1
     },
     {
-        passage: "Research indicates that bilingual children often show enhanced problem-solving abilities. A study at Northwestern University found that switching between languages exercises the brain's executive function. The benefits were observed in children who regularly used both languages at home.",
-        statement: "Children who speak only one language cannot develop good problem-solving abilities.",
-        options: ['True', 'False', 'Cannot Say'],
-        answer: 2
+        scenario: "You witness someone being publicly humiliated by their boss.",
+        question: "What's the empathetic response?",
+        options: [
+            { text: "Stay silent - it's not your business", points: 1 },
+            { text: "After the situation, privately check on the person, offer support, and acknowledge how difficult that must have been", points: 4 },
+            { text: "Join in to avoid being the boss's next target", points: 1 },
+            { text: "Immediately confront the boss publicly", points: 2 }
+        ],
+        correctIndex: 1
+    },
+    {
+        scenario: "A friend shares exciting news about an achievement, but you're going through a difficult time yourself.",
+        question: "How do you respond?",
+        options: [
+            { text: "Minimize their achievement because you're not in the mood to celebrate", points: 1 },
+            { text: "Genuinely celebrate with them while acknowledging internally that you can hold space for both their joy and your struggles", points: 4 },
+            { text: "Immediately share your own problems to shift focus", points: 1 },
+            { text: "Fake enthusiasm while feeling resentful", points: 2 }
+        ],
+        correctIndex: 1
+    },
+    {
+        scenario: "Someone you know has made choices you personally disagree with in their life.",
+        question: "How do you approach your relationship with them?",
+        options: [
+            { text: "Cut them off because you can't support their choices", points: 1 },
+            { text: "Separate your personal values from your ability to understand their perspective and maintain the relationship with compassion", points: 4 },
+            { text: "Constantly lecture them about making better choices", points: 1 },
+            { text: "Pretend to agree with their choices to keep the peace", points: 1 }
+        ],
+        correctIndex: 1
     }
 ];
 
 // ============================================
-// Spatial Reasoning Questions
+// Social Skills Questions
 // ============================================
 
-const spatialQuestions = [
+const socialSkillsQuestions = [
     {
-        title: "Which shape is the 90° clockwise rotation of the original?",
-        original: createLShape(colors.blue, 0),
+        scenario: "You need to deliver critical feedback to a team member whose work has been subpar.",
+        question: "How do you approach this conversation?",
         options: [
-            createLShape(colors.blue, 90),
-            createLShape(colors.blue, 180),
-            createLShape(colors.blue, 270),
-            createLShape(colors.blue, 45),
+            { text: "Be direct and harsh so they understand the severity", points: 1 },
+            { text: "Start with genuine appreciation for their efforts, be specific about areas for improvement, and collaborate on solutions while maintaining their dignity", points: 4 },
+            { text: "Avoid the conversation and hope they improve on their own", points: 1 },
+            { text: "Send an email instead of talking face-to-face", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        title: "Which shape is the mirror image (flipped horizontally)?",
-        original: `<svg viewBox="0 0 100 100"><path d="M20,20 L80,20 L80,50 L50,50 L50,80 L20,80 Z" fill="${colors.purple}"/></svg>`,
+        scenario: "You're at a networking event and feel uncomfortable approaching strangers.",
+        question: "What strategy helps you connect effectively?",
         options: [
-            `<svg viewBox="0 0 100 100"><path d="M80,20 L20,20 L20,50 L50,50 L50,80 L80,80 Z" fill="${colors.purple}"/></svg>`,
-            `<svg viewBox="0 0 100 100"><path d="M20,80 L80,80 L80,50 L50,50 L50,20 L20,20 Z" fill="${colors.purple}"/></svg>`,
-            `<svg viewBox="0 0 100 100"><path d="M20,20 L80,20 L80,50 L50,50 L50,80 L20,80 Z" fill="${colors.purple}"/></svg>`,
-            `<svg viewBox="0 0 100 100"><path d="M50,20 L80,20 L80,80 L20,80 L20,50 L50,50 Z" fill="${colors.purple}"/></svg>`,
+            { text: "Stand alone hoping someone approaches you", points: 1 },
+            { text: "Focus on being genuinely curious about others - ask thoughtful questions and listen actively rather than worrying about impressing them", points: 4 },
+            { text: "Talk only about yourself and your achievements", points: 1 },
+            { text: "Stick close to people you already know the entire time", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        title: "Which shape is the 180° rotation of the original?",
-        original: createArrow(colors.green, 0),
+        scenario: "Two people on your team are in conflict, and it's affecting group productivity.",
+        question: "How do you help resolve the situation?",
         options: [
-            createArrow(colors.green, 90),
-            createArrow(colors.green, 180),
-            createArrow(colors.green, 270),
-            createArrow(colors.green, 45),
+            { text: "Take one side that you agree with more", points: 1 },
+            { text: "Facilitate a conversation where both feel heard, focus on shared goals, and help them find common ground without taking sides", points: 4 },
+            { text: "Report them both to management", points: 1 },
+            { text: "Ignore it and hope they work it out themselves", points: 1 }
         ],
-        answer: 1
+        correctIndex: 1
     },
     {
-        title: "Which shape is the 270° clockwise rotation of the original?",
-        original: createTriangle(colors.red, 0),
+        scenario: "You need to persuade your manager to approve a new initiative you believe in.",
+        question: "What approach is most effective?",
         options: [
-            createTriangle(colors.red, 90),
-            createTriangle(colors.red, 180),
-            createTriangle(colors.red, 270),
-            createTriangle(colors.red, 45),
+            { text: "Push your idea forcefully and argue against any objections", points: 1 },
+            { text: "Understand your manager's priorities first, present your idea in terms of benefits they care about, and be open to modifications", points: 4 },
+            { text: "Complain to colleagues if your manager doesn't agree immediately", points: 1 },
+            { text: "Give up if there's any initial resistance", points: 1 }
         ],
-        answer: 2
+        correctIndex: 1
     },
     {
-        title: "Which shape is the same as the original but rotated 45°?",
-        original: createSquare(colors.orange, 0),
+        scenario: "You realize you've said something that unintentionally hurt someone's feelings.",
+        question: "How do you handle this?",
         options: [
-            createSquare(colors.orange, 90),
-            createSquare(colors.orange, 45),
-            createSquare(colors.orange, 30),
-            createSquare(colors.orange, 0),
+            { text: "Justify what you said - they're being too sensitive", points: 1 },
+            { text: "Acknowledge the impact of your words, apologize sincerely without making excuses, and ask how you can make it right", points: 4 },
+            { text: "Over-apologize repeatedly until they feel awkward", points: 2 },
+            { text: "Avoid them going forward to prevent future incidents", points: 1 }
         ],
-        answer: 1
+        correctIndex: 1
     },
     {
-        title: "Which shape completes the pattern when rotated?",
-        original: createCross(colors.cyan, 0),
+        scenario: "You're leading a meeting and notice some participants haven't spoken while others dominate.",
+        question: "How do you ensure everyone contributes?",
         options: [
-            createCross(colors.cyan, 45),
-            createCross(colors.cyan, 90),
-            createCross(colors.cyan, 135),
-            createCross(colors.cyan, 180),
+            { text: "Let the meeting continue as is - quiet people can speak up if they want", points: 1 },
+            { text: "Directly invite quieter members to share thoughts, create structure for equal participation, and gently manage over-talkers", points: 4 },
+            { text: "Call out the quiet people publicly for not participating", points: 1 },
+            { text: "Let the dominant voices lead since they seem most engaged", points: 1 }
         ],
-        answer: 0
+        correctIndex: 1
     },
     {
-        title: "Which shape is the 90° counter-clockwise rotation?",
-        original: createPentagon(colors.pink, 0),
+        scenario: "A new person joins your team and seems to be struggling to fit in.",
+        question: "What do you do?",
         options: [
-            createPentagon(colors.pink, 90),
-            createPentagon(colors.pink, 270),
-            createPentagon(colors.pink, 180),
-            createPentagon(colors.pink, 45),
+            { text: "Let them figure it out - everyone goes through adjustment periods", points: 1 },
+            { text: "Proactively reach out to include them, introduce them to others, explain unwritten team norms, and check in periodically on how they're doing", points: 4 },
+            { text: "Tell them everything they're doing wrong so they can improve faster", points: 1 },
+            { text: "Wait for them to ask for help if they need it", points: 2 }
         ],
-        answer: 1
+        correctIndex: 1
     },
     {
-        title: "Which shape is the 180° rotation of the original?",
-        original: createHexagon(colors.yellow, 0),
+        scenario: "You're in a group project and one person isn't pulling their weight.",
+        question: "How do you address this?",
         options: [
-            createHexagon(colors.yellow, 90),
-            createHexagon(colors.yellow, 45),
-            createHexagon(colors.yellow, 180),
-            createHexagon(colors.yellow, 270),
+            { text: "Do their work for them to ensure the project succeeds", points: 1 },
+            { text: "Have a private, non-accusatory conversation to understand if there are obstacles, clarify expectations, and agree on accountability", points: 4 },
+            { text: "Complain about them to other team members", points: 1 },
+            { text: "Report them to the supervisor immediately without discussing with them first", points: 1 }
         ],
-        answer: 2
+        correctIndex: 1
     }
 ];
 
 // 20 Additional Test Offers
 const additionalTests = [
-    { id: 1, name: 'Numerical Reasoning Test', icon: '🔢', desc: 'Measure your numerical analysis abilities', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 2, name: 'Critical Thinking Test', icon: '🎯', desc: 'Test your analytical reasoning skills', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 3, name: 'Mechanical Reasoning Test', icon: '⚙️', desc: 'Evaluate understanding of physical principles', originalPrice: 12.99, currentPrice: 4.99 },
-    { id: 4, name: 'Situational Judgment Test', icon: '👔', desc: 'Assess workplace decision-making', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 5, name: 'Inductive Reasoning Test', icon: '🧩', desc: 'Test pattern recognition abilities', originalPrice: 14.99, currentPrice: 5.99 },
-    { id: 6, name: 'Diagrammatic Reasoning Test', icon: '📊', desc: 'Analyze flowcharts and diagrams', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 7, name: 'Error Checking Test', icon: '🔍', desc: 'Evaluate attention to detail', originalPrice: 11.99, currentPrice: 4.49 },
-    { id: 8, name: 'Watson Glaser Test', icon: '📚', desc: 'Critical thinking assessment', originalPrice: 14.99, currentPrice: 5.99 },
-    { id: 9, name: 'Cognitive Ability Test', icon: '🧠', desc: 'Comprehensive mental aptitude', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 10, name: 'Abstract Reasoning Advanced', icon: '🔷', desc: 'Advanced pattern analysis', originalPrice: 11.99, currentPrice: 4.49 },
-    { id: 11, name: 'Emotional Intelligence Test', icon: '❤️', desc: 'Measure EQ and empathy', originalPrice: 14.99, currentPrice: 5.99 },
+    { id: 1, name: 'Leadership Assessment', icon: '👔', desc: 'Evaluate your leadership potential and style', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 2, name: 'Stress Resilience Test', icon: '🧘', desc: 'Measure your ability to handle pressure', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 3, name: 'Communication Style Test', icon: '💬', desc: 'Discover your communication strengths', originalPrice: 12.99, currentPrice: 4.99 },
+    { id: 4, name: 'Conflict Resolution Test', icon: '🤝', desc: 'Assess how you handle disagreements', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 5, name: 'Personality Type Assessment', icon: '🎭', desc: 'Understand your personality traits', originalPrice: 14.99, currentPrice: 5.99 },
+    { id: 6, name: 'Emotional Triggers Test', icon: '⚡', desc: 'Identify your emotional triggers', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 7, name: 'Attachment Style Test', icon: '💕', desc: 'Understand your relationship patterns', originalPrice: 11.99, currentPrice: 4.49 },
+    { id: 8, name: 'Assertiveness Assessment', icon: '🦁', desc: 'Evaluate your assertiveness level', originalPrice: 14.99, currentPrice: 5.99 },
+    { id: 9, name: 'Mindfulness Quiz', icon: '🧠', desc: 'Test your present-moment awareness', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 10, name: 'Burnout Risk Assessment', icon: '🔥', desc: 'Evaluate your burnout warning signs', originalPrice: 11.99, currentPrice: 4.49 },
+    { id: 11, name: 'Logical Reasoning Test', icon: '🧩', desc: 'Measure your analytical thinking', originalPrice: 14.99, currentPrice: 5.99 },
     { id: 12, name: 'Memory Assessment', icon: '💭', desc: 'Evaluate memory capacity', originalPrice: 12.99, currentPrice: 4.99 },
-    { id: 13, name: 'Processing Speed Test', icon: '⚡', desc: 'Test cognitive processing speed', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 14, name: 'Syllogisms Test', icon: '📝', desc: 'Advanced deductive reasoning', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 15, name: 'Analogies Test', icon: '🔄', desc: 'Verbal and visual analogies', originalPrice: 12.99, currentPrice: 4.99 },
-    { id: 16, name: 'Data Interpretation Test', icon: '📈', desc: 'Analyze charts and graphs', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 17, name: 'Decision Making Test', icon: '⚖️', desc: 'Evaluate judgment skills', originalPrice: 14.99, currentPrice: 5.99 },
-    { id: 18, name: 'Sequence Completion Test', icon: '➡️', desc: 'Advanced pattern completion', originalPrice: 7.99, currentPrice: 2.99 },
-    { id: 19, name: 'Coding Assessment', icon: '💻', desc: 'Logic in programming context', originalPrice: 19.99, currentPrice: 7.99 },
-    { id: 20, name: 'Complete IQ Assessment', icon: '🏆', desc: 'Full intelligence quotient test', originalPrice: 29.99, currentPrice: 12.99 }
+    { id: 13, name: 'Anxiety Self-Assessment', icon: '🌊', desc: 'Understand your anxiety patterns', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 14, name: 'Self-Esteem Test', icon: '⭐', desc: 'Measure your self-worth beliefs', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 15, name: 'Gratitude Assessment', icon: '🙏', desc: 'Evaluate your appreciation mindset', originalPrice: 12.99, currentPrice: 4.99 },
+    { id: 16, name: 'Work-Life Balance Test', icon: '⚖️', desc: 'Assess your life balance', originalPrice: 9.99, currentPrice: 3.99 },
+    { id: 17, name: 'Decision Making Test', icon: '🎯', desc: 'Evaluate judgment skills', originalPrice: 14.99, currentPrice: 5.99 },
+    { id: 18, name: 'Optimism Assessment', icon: '☀️', desc: 'Measure your positive thinking', originalPrice: 7.99, currentPrice: 2.99 },
+    { id: 19, name: 'Boundary Setting Test', icon: '🚧', desc: 'Assess your personal boundaries', originalPrice: 19.99, currentPrice: 7.99 },
+    { id: 20, name: 'Complete EQ Assessment', icon: '💖', desc: 'Full emotional intelligence deep-dive', originalPrice: 29.99, currentPrice: 12.99 }
 ];
 
 // ============================================
@@ -610,14 +548,7 @@ function closeModal(modalId) {
 }
 
 function updateProgress() {
-    const totalQuestions = 40; // 10 + 8 + 8 + 6 + 8
-    const completedQuestions =
-        (state.currentTest > 0 ? 10 : state.currentQuestion) +
-        (state.currentTest > 1 ? 8 : (state.currentTest === 1 ? state.currentQuestion : 0)) +
-        (state.currentTest > 2 ? 8 : (state.currentTest === 2 ? state.currentQuestion : 0)) +
-        (state.currentTest > 3 ? 6 : (state.currentTest === 3 ? state.currentQuestion : 0)) +
-        (state.currentTest > 4 ? 8 : (state.currentTest === 4 ? state.currentQuestion : 0));
-
+    const totalQuestions = 40; // 8 + 8 + 8 + 8 + 8
     const progress = Math.min((state.currentTest / state.tests.length) * 100, 100);
     document.getElementById('progressFill').style.width = `${progress}%`;
     document.getElementById('progressText').textContent = `${Math.round(progress)}% Complete`;
@@ -663,8 +594,27 @@ function showCurrentTest() {
     }
 
     const currentTestId = state.tests[state.currentTest];
-    const testSection = document.getElementById(`test${currentTestId.charAt(0).toUpperCase() + currentTestId.slice(1)}`);
+    let testSectionId;
 
+    switch(currentTestId) {
+        case 'selfawareness':
+            testSectionId = 'testSelfAwareness';
+            break;
+        case 'selfregulation':
+            testSectionId = 'testSelfRegulation';
+            break;
+        case 'motivation':
+            testSectionId = 'testMotivation';
+            break;
+        case 'empathy':
+            testSectionId = 'testEmpathy';
+            break;
+        case 'socialskills':
+            testSectionId = 'testSocialSkills';
+            break;
+    }
+
+    const testSection = document.getElementById(testSectionId);
     if (testSection) {
         testSection.style.display = 'block';
         updateTestName(currentTestId);
@@ -674,13 +624,13 @@ function showCurrentTest() {
 
 function updateTestName(testId) {
     const names = {
-        abstract: 'Abstract Reasoning',
-        deductive: 'Deductive Reasoning',
-        pattern: 'Pattern Recognition',
-        verbal: 'Verbal Reasoning',
-        spatial: 'Spatial Reasoning'
+        selfawareness: 'Self-Awareness',
+        selfregulation: 'Self-Regulation',
+        motivation: 'Motivation',
+        empathy: 'Empathy',
+        socialskills: 'Social Skills'
     };
-    document.getElementById('currentTestName').textContent = names[testId] || 'Reasoning Test';
+    document.getElementById('currentTestName').textContent = names[testId] || 'EQ Assessment';
 }
 
 function nextTest() {
@@ -691,353 +641,202 @@ function nextTest() {
 }
 
 // ============================================
-// Abstract Reasoning Test
+// Generic EQ Question Display Function
 // ============================================
 
-function startAbstract() {
-    document.getElementById('abstractIntro').style.display = 'none';
-    document.getElementById('abstractDisplay').style.display = 'block';
-    state.currentQuestion = 0;
-    state.testStartTime = Date.now();
-    showAbstractQuestion();
-}
-
-function showAbstractQuestion() {
-    if (state.currentQuestion >= abstractQuestions.length) {
-        state.scores.abstract.time = (Date.now() - state.testStartTime) / 1000;
+function showEQQuestion(testName, questions, displayId, counterId, scenarioId, questionId, optionsId) {
+    if (state.currentQuestion >= questions.length) {
+        state.scores[testName].time = (Date.now() - state.testStartTime) / 1000;
         nextTest();
         return;
     }
 
-    const q = abstractQuestions[state.currentQuestion];
-    document.getElementById('abstractCounter').textContent = `Question ${state.currentQuestion + 1} of ${abstractQuestions.length}`;
-    document.getElementById('testTimer').textContent = `⏱️ Q${state.currentQuestion + 1}/${abstractQuestions.length}`;
+    const q = questions[state.currentQuestion];
+    document.getElementById(counterId).textContent = `Question ${state.currentQuestion + 1} of ${questions.length}`;
+    document.getElementById('testTimer').textContent = `⏱️ Q${state.currentQuestion + 1}/${questions.length}`;
 
-    // Display sequence
-    const sequenceContainer = document.getElementById('patternSequence');
-    sequenceContainer.innerHTML = '';
-    q.sequence.forEach((shape, index) => {
-        const div = document.createElement('div');
-        div.className = 'pattern-item';
-        div.innerHTML = shape;
-        div.style.animationDelay = `${index * 0.1}s`;
-        sequenceContainer.appendChild(div);
-    });
+    // Display scenario
+    document.getElementById(scenarioId).innerHTML = `
+        <div class="scenario-label">📖 Scenario</div>
+        <div class="scenario-text">${q.scenario}</div>
+    `;
 
-    // Display options
-    const optionsContainer = document.getElementById('abstractOptions');
-    optionsContainer.innerHTML = '';
-    q.options.forEach((option, index) => {
-        const div = document.createElement('div');
-        div.className = 'answer-option';
-        div.innerHTML = option;
-        div.dataset.index = index;
-        div.addEventListener('click', () => selectAbstractAnswer(div, index, q.answer));
-        optionsContainer.appendChild(div);
-    });
-
-    state.selectedAnswer = null;
-}
-
-function selectAbstractAnswer(element, selected, correct) {
-    if (state.selectedAnswer !== null) return;
-    state.selectedAnswer = selected;
-
-    // Remove previous selections
-    document.querySelectorAll('.answer-option').forEach(opt => opt.classList.remove('selected'));
-    element.classList.add('selected');
-
-    if (selected === correct) {
-        state.scores.abstract.correct++;
-    }
-
-    // Move to next question after delay
-    setTimeout(() => {
-        state.currentQuestion++;
-        showAbstractQuestion();
-    }, 800);
-}
-
-// ============================================
-// Deductive Reasoning Test
-// ============================================
-
-function startDeductive() {
-    document.getElementById('deductiveIntro').style.display = 'none';
-    document.getElementById('deductiveDisplay').style.display = 'block';
-    state.currentQuestion = 0;
-    state.testStartTime = Date.now();
-    showDeductiveQuestion();
-}
-
-function showDeductiveQuestion() {
-    if (state.currentQuestion >= deductiveQuestions.length) {
-        state.scores.deductive.time = (Date.now() - state.testStartTime) / 1000;
-        nextTest();
-        return;
-    }
-
-    const q = deductiveQuestions[state.currentQuestion];
-    document.getElementById('deductiveCounter').textContent = `Question ${state.currentQuestion + 1} of ${deductiveQuestions.length}`;
-    document.getElementById('testTimer').textContent = `⏱️ Q${state.currentQuestion + 1}/${deductiveQuestions.length}`;
-
-    // Display premises
-    const premiseContainer = document.getElementById('premiseContainer');
-    premiseContainer.innerHTML = '';
-    q.premises.forEach((premise, index) => {
-        const div = document.createElement('div');
-        div.className = 'premise-box';
-        div.innerHTML = `
-            <div class="premise-label">Premise ${index + 1}</div>
-            <div class="premise-text">${premise}</div>
-        `;
-        premiseContainer.appendChild(div);
-    });
+    // Display question
+    document.getElementById(questionId).innerHTML = `
+        <div class="eq-question-text">${q.question}</div>
+    `;
 
     // Display options
-    const optionsContainer = document.getElementById('deductiveOptions');
+    const optionsContainer = document.getElementById(optionsId);
     optionsContainer.innerHTML = '';
     const letters = ['A', 'B', 'C', 'D'];
     q.options.forEach((option, index) => {
         const div = document.createElement('div');
-        div.className = 'deductive-option';
+        div.className = 'eq-option';
         div.innerHTML = `
             <span class="option-letter">${letters[index]}</span>
-            <span class="option-text">${option}</span>
+            <span class="option-text">${option.text}</span>
         `;
         div.dataset.index = index;
-        div.addEventListener('click', () => selectDeductiveAnswer(div, index, q.answer));
+        div.dataset.points = option.points;
+        div.addEventListener('click', () => selectEQAnswer(div, testName, option.points));
         optionsContainer.appendChild(div);
     });
 
     state.selectedAnswer = null;
 }
 
-function selectDeductiveAnswer(element, selected, correct) {
+function selectEQAnswer(element, testName, points) {
     if (state.selectedAnswer !== null) return;
-    state.selectedAnswer = selected;
+    state.selectedAnswer = true;
 
-    document.querySelectorAll('.deductive-option').forEach(opt => opt.classList.remove('selected'));
+    document.querySelectorAll('.eq-option').forEach(opt => opt.classList.remove('selected'));
     element.classList.add('selected');
 
-    if (selected === correct) {
-        state.scores.deductive.correct++;
-    }
+    state.scores[testName].points += points;
 
     setTimeout(() => {
         state.currentQuestion++;
-        showDeductiveQuestion();
+
+        // Determine which question display function to call
+        switch(testName) {
+            case 'selfawareness':
+                showSelfAwarenessQuestion();
+                break;
+            case 'selfregulation':
+                showSelfRegulationQuestion();
+                break;
+            case 'motivation':
+                showMotivationQuestion();
+                break;
+            case 'empathy':
+                showEmpathyQuestion();
+                break;
+            case 'socialskills':
+                showSocialSkillsQuestion();
+                break;
+        }
     }, 800);
 }
 
 // ============================================
-// Pattern Recognition Test
+// Self-Awareness Test
 // ============================================
 
-function startPattern() {
-    document.getElementById('patternIntro').style.display = 'none';
-    document.getElementById('patternDisplay').style.display = 'block';
+function startSelfAwareness() {
+    document.getElementById('selfAwarenessIntro').style.display = 'none';
+    document.getElementById('selfAwarenessDisplay').style.display = 'block';
     state.currentQuestion = 0;
     state.testStartTime = Date.now();
-    showPatternQuestion();
+    showSelfAwarenessQuestion();
 }
 
-function showPatternQuestion() {
-    if (state.currentQuestion >= patternQuestions.length) {
-        state.scores.pattern.time = (Date.now() - state.testStartTime) / 1000;
-        nextTest();
-        return;
-    }
-
-    const q = patternQuestions[state.currentQuestion];
-    document.getElementById('patternCounter').textContent = `Question ${state.currentQuestion + 1} of ${patternQuestions.length}`;
-    document.getElementById('testTimer').textContent = `⏱️ Q${state.currentQuestion + 1}/${patternQuestions.length}`;
-
-    // Display sequence
-    const sequenceContainer = document.getElementById('sequenceDisplay');
-    sequenceContainer.innerHTML = '';
-    q.sequence.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'sequence-item';
-        div.textContent = item;
-        div.style.animationDelay = `${index * 0.1}s`;
-        sequenceContainer.appendChild(div);
-    });
-
-    // Add question mark
-    const questionDiv = document.createElement('div');
-    questionDiv.className = 'sequence-question';
-    questionDiv.textContent = '?';
-    sequenceContainer.appendChild(questionDiv);
-
-    // Display options
-    const optionsContainer = document.getElementById('patternOptions');
-    optionsContainer.innerHTML = '';
-    q.options.forEach((option, index) => {
-        const div = document.createElement('div');
-        div.className = 'pattern-option';
-        div.textContent = option;
-        div.dataset.index = index;
-        div.addEventListener('click', () => selectPatternAnswer(div, index, q.answer));
-        optionsContainer.appendChild(div);
-    });
-
-    state.selectedAnswer = null;
-}
-
-function selectPatternAnswer(element, selected, correct) {
-    if (state.selectedAnswer !== null) return;
-    state.selectedAnswer = selected;
-
-    document.querySelectorAll('.pattern-option').forEach(opt => opt.classList.remove('selected'));
-    element.classList.add('selected');
-
-    if (selected === correct) {
-        state.scores.pattern.correct++;
-    }
-
-    setTimeout(() => {
-        state.currentQuestion++;
-        showPatternQuestion();
-    }, 800);
+function showSelfAwarenessQuestion() {
+    showEQQuestion(
+        'selfawareness',
+        selfAwarenessQuestions,
+        'selfAwarenessDisplay',
+        'selfAwarenessCounter',
+        'selfAwarenessScenario',
+        'selfAwarenessQuestion',
+        'selfAwarenessOptions'
+    );
 }
 
 // ============================================
-// Verbal Reasoning Test
+// Self-Regulation Test
 // ============================================
 
-function startVerbal() {
-    document.getElementById('verbalIntro').style.display = 'none';
-    document.getElementById('verbalDisplay').style.display = 'block';
+function startSelfRegulation() {
+    document.getElementById('selfRegulationIntro').style.display = 'none';
+    document.getElementById('selfRegulationDisplay').style.display = 'block';
     state.currentQuestion = 0;
     state.testStartTime = Date.now();
-    showVerbalQuestion();
+    showSelfRegulationQuestion();
 }
 
-function showVerbalQuestion() {
-    if (state.currentQuestion >= verbalQuestions.length) {
-        state.scores.verbal.time = (Date.now() - state.testStartTime) / 1000;
-        nextTest();
-        return;
-    }
-
-    const q = verbalQuestions[state.currentQuestion];
-    document.getElementById('verbalCounter').textContent = `Question ${state.currentQuestion + 1} of ${verbalQuestions.length}`;
-    document.getElementById('testTimer').textContent = `⏱️ Q${state.currentQuestion + 1}/${verbalQuestions.length}`;
-
-    // Display passage
-    document.getElementById('passageContainer').innerHTML = `
-        <div class="passage-title">📖 Passage</div>
-        <div class="passage-text">${q.passage}</div>
-    `;
-
-    // Display statement
-    document.getElementById('statementContainer').innerHTML = `
-        <div class="statement-label">Statement to Evaluate:</div>
-        <div class="statement-text">${q.statement}</div>
-    `;
-
-    // Display options
-    const optionsContainer = document.getElementById('verbalOptions');
-    optionsContainer.innerHTML = '';
-    q.options.forEach((option, index) => {
-        const div = document.createElement('div');
-        div.className = 'verbal-option';
-        if (option === 'True') div.classList.add('true-opt');
-        if (option === 'False') div.classList.add('false-opt');
-        if (option === 'Cannot Say') div.classList.add('cannot-opt');
-        div.textContent = option;
-        div.dataset.index = index;
-        div.addEventListener('click', () => selectVerbalAnswer(div, index, q.answer));
-        optionsContainer.appendChild(div);
-    });
-
-    state.selectedAnswer = null;
-}
-
-function selectVerbalAnswer(element, selected, correct) {
-    if (state.selectedAnswer !== null) return;
-    state.selectedAnswer = selected;
-
-    document.querySelectorAll('.verbal-option').forEach(opt => opt.classList.remove('selected'));
-    element.classList.add('selected');
-
-    if (selected === correct) {
-        state.scores.verbal.correct++;
-    }
-
-    setTimeout(() => {
-        state.currentQuestion++;
-        showVerbalQuestion();
-    }, 800);
+function showSelfRegulationQuestion() {
+    showEQQuestion(
+        'selfregulation',
+        selfRegulationQuestions,
+        'selfRegulationDisplay',
+        'selfRegulationCounter',
+        'selfRegulationScenario',
+        'selfRegulationQuestion',
+        'selfRegulationOptions'
+    );
 }
 
 // ============================================
-// Spatial Reasoning Test
+// Motivation Test
 // ============================================
 
-function startSpatial() {
-    document.getElementById('spatialIntro').style.display = 'none';
-    document.getElementById('spatialDisplay').style.display = 'block';
+function startMotivation() {
+    document.getElementById('motivationIntro').style.display = 'none';
+    document.getElementById('motivationDisplay').style.display = 'block';
     state.currentQuestion = 0;
     state.testStartTime = Date.now();
-    showSpatialQuestion();
+    showMotivationQuestion();
 }
 
-function showSpatialQuestion() {
-    if (state.currentQuestion >= spatialQuestions.length) {
-        state.scores.spatial.time = (Date.now() - state.testStartTime) / 1000;
-        nextTest();
-        return;
-    }
-
-    const q = spatialQuestions[state.currentQuestion];
-    document.getElementById('spatialCounter').textContent = `Question ${state.currentQuestion + 1} of ${spatialQuestions.length}`;
-    document.getElementById('testTimer').textContent = `⏱️ Q${state.currentQuestion + 1}/${spatialQuestions.length}`;
-    document.getElementById('spatialTitle').textContent = q.title;
-
-    // Display original shape
-    document.getElementById('spatialQuestion').innerHTML = `
-        <div class="original-shape">
-            <div class="original-label">Original Shape</div>
-            <div class="shape-box">${q.original}</div>
-        </div>
-    `;
-
-    // Display options
-    const optionsContainer = document.getElementById('spatialOptions');
-    optionsContainer.innerHTML = '';
-    const letters = ['A', 'B', 'C', 'D'];
-    q.options.forEach((option, index) => {
-        const div = document.createElement('div');
-        div.className = 'spatial-option';
-        div.innerHTML = `
-            <span class="spatial-option-label">${letters[index]}</span>
-            ${option}
-        `;
-        div.dataset.index = index;
-        div.addEventListener('click', () => selectSpatialAnswer(div, index, q.answer));
-        optionsContainer.appendChild(div);
-    });
-
-    state.selectedAnswer = null;
+function showMotivationQuestion() {
+    showEQQuestion(
+        'motivation',
+        motivationQuestions,
+        'motivationDisplay',
+        'motivationCounter',
+        'motivationScenario',
+        'motivationQuestion',
+        'motivationOptions'
+    );
 }
 
-function selectSpatialAnswer(element, selected, correct) {
-    if (state.selectedAnswer !== null) return;
-    state.selectedAnswer = selected;
+// ============================================
+// Empathy Test
+// ============================================
 
-    document.querySelectorAll('.spatial-option').forEach(opt => opt.classList.remove('selected'));
-    element.classList.add('selected');
+function startEmpathy() {
+    document.getElementById('empathyIntro').style.display = 'none';
+    document.getElementById('empathyDisplay').style.display = 'block';
+    state.currentQuestion = 0;
+    state.testStartTime = Date.now();
+    showEmpathyQuestion();
+}
 
-    if (selected === correct) {
-        state.scores.spatial.correct++;
-    }
+function showEmpathyQuestion() {
+    showEQQuestion(
+        'empathy',
+        empathyQuestions,
+        'empathyDisplay',
+        'empathyCounter',
+        'empathyScenario',
+        'empathyQuestion',
+        'empathyOptions'
+    );
+}
 
-    setTimeout(() => {
-        state.currentQuestion++;
-        showSpatialQuestion();
-    }, 800);
+// ============================================
+// Social Skills Test
+// ============================================
+
+function startSocialSkills() {
+    document.getElementById('socialSkillsIntro').style.display = 'none';
+    document.getElementById('socialSkillsDisplay').style.display = 'block';
+    state.currentQuestion = 0;
+    state.testStartTime = Date.now();
+    showSocialSkillsQuestion();
+}
+
+function showSocialSkillsQuestion() {
+    showEQQuestion(
+        'socialskills',
+        socialSkillsQuestions,
+        'socialSkillsDisplay',
+        'socialSkillsCounter',
+        'socialSkillsScenario',
+        'socialSkillsQuestion',
+        'socialSkillsOptions'
+    );
 }
 
 // ============================================
@@ -1214,7 +1013,7 @@ function renderAdditionalTests() {
             </div>
         `;
         card.addEventListener('click', () => {
-            alert(`${test.name} - Coming soon! Stay tuned for more cognitive assessments.`);
+            alert(`${test.name} - Coming soon! Stay tuned for more assessments.`);
         });
         grid.appendChild(card);
     });

@@ -1,5 +1,5 @@
 /**
- * Logical Reasoning Test - Backend Server
+ * Emotional Intelligence Test - Backend Server
  * Handles Stripe payments and email delivery of results
  */
 
@@ -62,10 +62,10 @@ app.post('/api/create-payment-intent', async (req, res) => {
                 customer_name: user.name,
                 customer_email: user.email,
                 customer_phone: user.phone,
-                test_type: 'logical_reasoning_comprehensive'
+                test_type: 'emotional_intelligence_comprehensive'
             },
             receipt_email: user.email,
-            description: 'Logical Reasoning Test - Comprehensive Assessment Results'
+            description: 'Emotional Intelligence Test - Comprehensive EQ Assessment Results'
         });
 
         res.json({
@@ -85,21 +85,21 @@ app.post('/api/send-results', async (req, res) => {
         const { user, scores } = req.body;
 
         // Calculate overall score
-        const totalCorrect =
-            scores.abstract.correct +
-            scores.deductive.correct +
-            scores.pattern.correct +
-            scores.verbal.correct +
-            scores.spatial.correct;
+        const totalPoints =
+            scores.selfawareness.points +
+            scores.selfregulation.points +
+            scores.motivation.points +
+            scores.empathy.points +
+            scores.socialskills.points;
 
         const totalPossible =
-            scores.abstract.total +
-            scores.deductive.total +
-            scores.pattern.total +
-            scores.verbal.total +
-            scores.spatial.total;
+            scores.selfawareness.total +
+            scores.selfregulation.total +
+            scores.motivation.total +
+            scores.empathy.total +
+            scores.socialskills.total;
 
-        const overallPercentage = Math.round((totalCorrect / totalPossible) * 100);
+        const overallPercentage = Math.round((totalPoints / totalPossible) * 100);
 
         // Calculate percentile (simulated based on score)
         let percentile;
@@ -113,46 +113,47 @@ app.post('/api/send-results', async (req, res) => {
         // Determine performance level
         let performanceLevel, performanceColor, recommendations;
         if (overallPercentage >= 85) {
-            performanceLevel = 'Exceptional';
-            performanceColor = '#4ecdc4';
+            performanceLevel = 'Exceptional EQ';
+            performanceColor = '#4ECDC4';
             recommendations = [
-                'Your logical reasoning abilities are exceptional!',
-                'Consider pursuing careers in strategy, analysis, or research',
-                'Challenge yourself with advanced logic puzzles and strategic games',
-                'You would excel in roles requiring complex problem-solving'
+                'Your emotional intelligence is exceptional! You have a natural gift for understanding emotions.',
+                'Consider roles in leadership, counseling, HR, or any position requiring strong interpersonal skills.',
+                'Share your EQ skills by mentoring others in emotional awareness.',
+                'Continue developing by exploring advanced emotional intelligence topics like emotional coaching.'
             ];
         } else if (overallPercentage >= 70) {
-            performanceLevel = 'Above Average';
+            performanceLevel = 'Strong EQ';
             performanceColor = '#45b7d1';
             recommendations = [
-                'Your reasoning skills are above average',
-                'Practice with timed logic exercises to improve speed',
-                'Focus on deductive reasoning to strengthen weak areas',
-                'Consider brain-training apps for continued development'
+                'You demonstrate strong emotional intelligence across most areas.',
+                'Practice mindfulness meditation to enhance your self-awareness further.',
+                'Work on active listening skills to deepen your empathy.',
+                'Consider journaling to track emotional patterns and growth.'
             ];
         } else if (overallPercentage >= 50) {
-            performanceLevel = 'Average';
-            performanceColor = '#f9ca24';
+            performanceLevel = 'Developing EQ';
+            performanceColor = '#F8B500';
             recommendations = [
-                'Your reasoning abilities are within normal range',
-                'Regular practice can significantly improve your scores',
-                'Try solving puzzles and riddles daily',
-                'Focus on understanding patterns and logical relationships'
+                'Your emotional intelligence is developing well with room for growth.',
+                'Practice naming your emotions throughout the day to build self-awareness.',
+                'Try the "pause and reflect" technique before responding in emotional situations.',
+                'Read books on emotional intelligence to expand your understanding.'
             ];
         } else {
-            performanceLevel = 'Developing';
-            performanceColor = '#ff6b6b';
+            performanceLevel = 'Growth Opportunity';
+            performanceColor = '#FF6B9D';
             recommendations = [
-                'Your reasoning skills have room for improvement',
-                'Start with basic logic puzzles and gradually increase difficulty',
-                'Practice pattern recognition exercises regularly',
-                'Consider retaking the test after focused practice'
+                'This assessment highlights opportunities for emotional growth.',
+                'Start a daily emotion journal to track how you feel and why.',
+                'Practice deep breathing exercises when feeling overwhelmed.',
+                'Consider working with a coach or therapist to develop EQ skills.',
+                'Remember: EQ can be developed significantly with practice!'
             ];
         }
 
         // Generate email HTML
         const emailHTML = generateResultsEmail(user, scores, {
-            totalCorrect,
+            totalPoints,
             totalPossible,
             overallPercentage,
             percentile,
@@ -163,9 +164,9 @@ app.post('/api/send-results', async (req, res) => {
 
         // Send email
         await transporter.sendMail({
-            from: process.env.EMAIL_FROM || '"LogicMind Test" <noreply@logicmindtest.com>',
+            from: process.env.EMAIL_FROM || '"EmotionIQ Test" <noreply@emotioniqtest.com>',
             to: user.email,
-            subject: '🧩 Your Logical Reasoning Test Results Are Ready!',
+            subject: '💖 Your Emotional Intelligence Test Results Are Ready!',
             html: emailHTML
         });
 
@@ -183,22 +184,22 @@ app.post('/api/send-results', async (req, res) => {
 // ============================================
 
 function generateResultsEmail(user, scores, analysis) {
-    const { totalCorrect, totalPossible, overallPercentage, percentile, performanceLevel, performanceColor, recommendations } = analysis;
+    const { totalPoints, totalPossible, overallPercentage, percentile, performanceLevel, performanceColor, recommendations } = analysis;
 
     // Calculate individual test percentages
-    const abstractPercent = Math.round((scores.abstract.correct / scores.abstract.total) * 100);
-    const deductivePercent = Math.round((scores.deductive.correct / scores.deductive.total) * 100);
-    const patternPercent = Math.round((scores.pattern.correct / scores.pattern.total) * 100);
-    const verbalPercent = Math.round((scores.verbal.correct / scores.verbal.total) * 100);
-    const spatialPercent = Math.round((scores.spatial.correct / scores.spatial.total) * 100);
+    const selfAwarenessPercent = Math.round((scores.selfawareness.points / scores.selfawareness.total) * 100);
+    const selfRegulationPercent = Math.round((scores.selfregulation.points / scores.selfregulation.total) * 100);
+    const motivationPercent = Math.round((scores.motivation.points / scores.motivation.total) * 100);
+    const empathyPercent = Math.round((scores.empathy.points / scores.empathy.total) * 100);
+    const socialSkillsPercent = Math.round((scores.socialskills.points / scores.socialskills.total) * 100);
 
     // Find strongest and weakest areas
     const testScores = [
-        { name: 'Abstract Reasoning', percent: abstractPercent },
-        { name: 'Deductive Reasoning', percent: deductivePercent },
-        { name: 'Pattern Recognition', percent: patternPercent },
-        { name: 'Verbal Reasoning', percent: verbalPercent },
-        { name: 'Spatial Reasoning', percent: spatialPercent }
+        { name: 'Self-Awareness', percent: selfAwarenessPercent },
+        { name: 'Self-Regulation', percent: selfRegulationPercent },
+        { name: 'Motivation', percent: motivationPercent },
+        { name: 'Empathy', percent: empathyPercent },
+        { name: 'Social Skills', percent: socialSkillsPercent }
     ];
     const strongest = testScores.reduce((a, b) => a.percent > b.percent ? a : b);
     const weakest = testScores.reduce((a, b) => a.percent < b.percent ? a : b);
@@ -209,15 +210,15 @@ function generateResultsEmail(user, scores, analysis) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logical Reasoning Test Results</title>
+    <title>Emotional Intelligence Test Results</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
-    <div style="max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div style="max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #2d132c 0%, #1a0a1a 100%);">
 
         <!-- Header -->
         <div style="padding: 40px 30px; text-align: center;">
-            <h1 style="color: white; margin: 0; font-size: 28px;">🧩 LogicMind Test</h1>
-            <p style="color: rgba(255,255,255,0.8); margin: 10px 0 0 0;">Your Logical Reasoning Assessment Results</p>
+            <h1 style="color: white; margin: 0; font-size: 28px;">💖 EmotionIQ Test</h1>
+            <p style="color: rgba(255,255,255,0.8); margin: 10px 0 0 0;">Your Emotional Intelligence Assessment Results</p>
         </div>
 
         <!-- Main Content -->
@@ -226,18 +227,18 @@ function generateResultsEmail(user, scores, analysis) {
             <!-- Greeting -->
             <p style="font-size: 18px; color: #1a1a2e; margin-bottom: 30px;">
                 Hello <strong>${user.name}</strong>,<br><br>
-                Thank you for completing the Logical Reasoning Assessment. Here are your detailed results:
+                Thank you for completing the Emotional Intelligence Assessment. Here are your detailed results:
             </p>
 
             <!-- Overall Score -->
             <div style="background: linear-gradient(135deg, ${performanceColor}20, ${performanceColor}10); border-radius: 15px; padding: 30px; text-align: center; margin-bottom: 30px; border-left: 5px solid ${performanceColor};">
-                <h2 style="margin: 0 0 10px 0; color: #1a1a2e;">Overall Performance</h2>
+                <h2 style="margin: 0 0 10px 0; color: #1a1a2e;">Overall EQ Score</h2>
                 <div style="font-size: 64px; font-weight: bold; color: ${performanceColor}; margin: 10px 0;">${overallPercentage}%</div>
                 <div style="display: inline-block; padding: 8px 20px; background: ${performanceColor}; color: white; border-radius: 50px; font-weight: bold;">
                     ${performanceLevel}
                 </div>
                 <p style="color: #666; margin: 15px 0 0 0;">
-                    You scored ${totalCorrect} out of ${totalPossible} questions correctly
+                    You scored ${totalPoints} out of ${totalPossible} points
                 </p>
                 <p style="color: #888; margin: 10px 0 0 0; font-size: 14px;">
                     Top ${100 - percentile}% of test-takers
@@ -252,7 +253,7 @@ function generateResultsEmail(user, scores, analysis) {
                     <div style="color: #155724; font-size: 14px;">${strongest.percent}%</div>
                 </div>
                 <div style="flex: 1; background: linear-gradient(135deg, #fff3cd, #ffeeba); border-radius: 10px; padding: 15px; text-align: center;">
-                    <div style="font-size: 12px; color: #856404; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">📈 Focus Area</div>
+                    <div style="font-size: 12px; color: #856404; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">📈 Growth Area</div>
                     <div style="font-weight: bold; color: #856404;">${weakest.name}</div>
                     <div style="color: #856404; font-size: 14px;">${weakest.percent}%</div>
                 </div>
@@ -260,107 +261,118 @@ function generateResultsEmail(user, scores, analysis) {
 
             <!-- Individual Test Results -->
             <h3 style="color: #1a1a2e; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
-                📊 Detailed Score Breakdown
+                📊 Detailed EQ Breakdown
             </h3>
 
-            <!-- Abstract Reasoning -->
+            <!-- Self-Awareness -->
             <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong style="color: #1a1a2e;">🔷 Abstract Reasoning</strong>
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Shape patterns & sequences</p>
+                        <strong style="color: #1a1a2e;">🪞 Self-Awareness</strong>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Recognizing your own emotions</p>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 24px; font-weight: bold; color: #667eea;">${scores.abstract.correct}/${scores.abstract.total}</div>
-                        <div style="color: #666; font-size: 14px;">${abstractPercent}%</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #FF6B9D;">${scores.selfawareness.points}/${scores.selfawareness.total}</div>
+                        <div style="color: #666; font-size: 14px;">${selfAwarenessPercent}%</div>
                     </div>
                 </div>
                 <div style="background: #e9ecef; border-radius: 10px; height: 8px; margin-top: 10px; overflow: hidden;">
-                    <div style="background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; width: ${abstractPercent}%; border-radius: 10px;"></div>
+                    <div style="background: linear-gradient(90deg, #FF6B9D, #C44569); height: 100%; width: ${selfAwarenessPercent}%; border-radius: 10px;"></div>
                 </div>
             </div>
 
-            <!-- Deductive Reasoning -->
+            <!-- Self-Regulation -->
             <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong style="color: #1a1a2e;">🎯 Deductive Reasoning</strong>
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Logical conclusions from premises</p>
+                        <strong style="color: #1a1a2e;">🧘 Self-Regulation</strong>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Managing emotional responses</p>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 24px; font-weight: bold; color: #f5576c;">${scores.deductive.correct}/${scores.deductive.total}</div>
-                        <div style="color: #666; font-size: 14px;">${deductivePercent}%</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #4ECDC4;">${scores.selfregulation.points}/${scores.selfregulation.total}</div>
+                        <div style="color: #666; font-size: 14px;">${selfRegulationPercent}%</div>
                     </div>
                 </div>
                 <div style="background: #e9ecef; border-radius: 10px; height: 8px; margin-top: 10px; overflow: hidden;">
-                    <div style="background: linear-gradient(90deg, #f093fb, #f5576c); height: 100%; width: ${deductivePercent}%; border-radius: 10px;"></div>
+                    <div style="background: linear-gradient(90deg, #4ECDC4, #2C9F8F); height: 100%; width: ${selfRegulationPercent}%; border-radius: 10px;"></div>
                 </div>
             </div>
 
-            <!-- Pattern Recognition -->
+            <!-- Motivation -->
             <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong style="color: #1a1a2e;">🔢 Pattern Recognition</strong>
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Number & letter sequences</p>
+                        <strong style="color: #1a1a2e;">🔥 Motivation</strong>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Inner drive & optimism</p>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 24px; font-weight: bold; color: #4facfe;">${scores.pattern.correct}/${scores.pattern.total}</div>
-                        <div style="color: #666; font-size: 14px;">${patternPercent}%</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #F8B500;">${scores.motivation.points}/${scores.motivation.total}</div>
+                        <div style="color: #666; font-size: 14px;">${motivationPercent}%</div>
                     </div>
                 </div>
                 <div style="background: #e9ecef; border-radius: 10px; height: 8px; margin-top: 10px; overflow: hidden;">
-                    <div style="background: linear-gradient(90deg, #4facfe, #00f2fe); height: 100%; width: ${patternPercent}%; border-radius: 10px;"></div>
+                    <div style="background: linear-gradient(90deg, #F8B500, #FFA500); height: 100%; width: ${motivationPercent}%; border-radius: 10px;"></div>
                 </div>
             </div>
 
-            <!-- Verbal Reasoning -->
+            <!-- Empathy -->
             <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong style="color: #1a1a2e;">📝 Verbal Reasoning</strong>
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Text analysis & conclusions</p>
+                        <strong style="color: #1a1a2e;">💕 Empathy</strong>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Understanding others' feelings</p>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 24px; font-weight: bold; color: #fa709a;">${scores.verbal.correct}/${scores.verbal.total}</div>
-                        <div style="color: #666; font-size: 14px;">${verbalPercent}%</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #FF9A9E;">${scores.empathy.points}/${scores.empathy.total}</div>
+                        <div style="color: #666; font-size: 14px;">${empathyPercent}%</div>
                     </div>
                 </div>
                 <div style="background: #e9ecef; border-radius: 10px; height: 8px; margin-top: 10px; overflow: hidden;">
-                    <div style="background: linear-gradient(90deg, #fa709a, #fee140); height: 100%; width: ${verbalPercent}%; border-radius: 10px;"></div>
+                    <div style="background: linear-gradient(90deg, #FF9A9E, #FECFEF); height: 100%; width: ${empathyPercent}%; border-radius: 10px;"></div>
                 </div>
             </div>
 
-            <!-- Spatial Reasoning -->
+            <!-- Social Skills -->
             <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 30px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong style="color: #1a1a2e;">📐 Spatial Reasoning</strong>
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Mental rotation & manipulation</p>
+                        <strong style="color: #1a1a2e;">🤝 Social Skills</strong>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Building & managing relationships</p>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 24px; font-weight: bold; color: #38ef7d;">${scores.spatial.correct}/${scores.spatial.total}</div>
-                        <div style="color: #666; font-size: 14px;">${spatialPercent}%</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #9B59B6;">${scores.socialskills.points}/${scores.socialskills.total}</div>
+                        <div style="color: #666; font-size: 14px;">${socialSkillsPercent}%</div>
                     </div>
                 </div>
                 <div style="background: #e9ecef; border-radius: 10px; height: 8px; margin-top: 10px; overflow: hidden;">
-                    <div style="background: linear-gradient(90deg, #11998e, #38ef7d); height: 100%; width: ${spatialPercent}%; border-radius: 10px;"></div>
+                    <div style="background: linear-gradient(90deg, #9B59B6, #8E44AD); height: 100%; width: ${socialSkillsPercent}%; border-radius: 10px;"></div>
                 </div>
             </div>
 
             <!-- Recommendations -->
             <h3 style="color: #1a1a2e; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
-                💡 Personalized Recommendations
+                💡 Personalized Growth Recommendations
             </h3>
             <ul style="color: #666; line-height: 1.8; padding-left: 20px;">
                 ${recommendations.map(rec => `<li>${rec}</li>`).join('')}
             </ul>
 
+            <!-- Understanding EQ -->
+            <div style="background: linear-gradient(135deg, #fff5f8, #ffe0eb); border-radius: 15px; padding: 25px; margin-top: 30px;">
+                <h3 style="margin: 0 0 15px 0; color: #1a1a2e;">💖 Why Emotional Intelligence Matters</h3>
+                <p style="color: #666; margin: 0; line-height: 1.8;">
+                    Research shows that EQ is often more important than IQ for success in life and work.
+                    People with high emotional intelligence tend to have better relationships, greater career success,
+                    improved mental health, and more effective leadership abilities.
+                    The good news? Unlike IQ, emotional intelligence can be developed throughout your lifetime!
+                </p>
+            </div>
+
             <!-- More Tests CTA -->
             <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 15px; padding: 25px; text-align: center; margin-top: 30px;">
-                <h3 style="margin: 0 0 10px 0; color: #1a1a2e;">🎯 Discover More About Your Mind</h3>
-                <p style="color: #666; margin: 0 0 20px 0;">Explore our collection of 20+ specialized cognitive assessments</p>
-                <a href="${process.env.APP_URL || 'http://localhost:3000'}" style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                <h3 style="margin: 0 0 10px 0; color: #1a1a2e;">🎯 Discover More About Yourself</h3>
+                <p style="color: #666; margin: 0 0 20px 0;">Explore our collection of 20+ specialized assessments</p>
+                <a href="${process.env.APP_URL || 'http://localhost:3000'}" style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #FF6B9D, #C44569); color: white; text-decoration: none; border-radius: 50px; font-weight: bold;">
                     View All Tests →
                 </a>
             </div>
@@ -369,25 +381,25 @@ function generateResultsEmail(user, scores, analysis) {
             <div style="margin-top: 30px; padding: 20px; background: #f0fdf4; border-radius: 10px;">
                 <h4 style="margin: 0 0 15px 0; color: #1a1a2e;">📦 Other Tests Available:</h4>
                 <ul style="color: #666; margin: 0; padding-left: 20px; line-height: 1.8;">
-                    <li>Numerical Reasoning Test</li>
-                    <li>Critical Thinking Assessment</li>
-                    <li>Mechanical Reasoning Test</li>
-                    <li>Situational Judgment Test</li>
-                    <li>Emotional Intelligence Assessment</li>
-                    <li>Complete IQ Test</li>
+                    <li>Leadership Assessment</li>
+                    <li>Stress Resilience Test</li>
+                    <li>Communication Style Test</li>
+                    <li>Conflict Resolution Assessment</li>
+                    <li>Logical Reasoning Test</li>
+                    <li>Complete Personality Profile</li>
                     <li>And 14 more specialized tests!</li>
                 </ul>
             </div>
         </div>
 
         <!-- Footer -->
-        <div style="background: #0f0f23; padding: 30px; text-align: center;">
+        <div style="background: #0f0518; padding: 30px; text-align: center;">
             <p style="color: rgba(255,255,255,0.8); margin: 0 0 15px 0; font-size: 14px;">
-                🧩 LogicMind Test - World-Class Logical Reasoning Assessments
+                💖 EmotionIQ Test - World-Class Emotional Intelligence Assessments
             </p>
             <p style="color: rgba(255,255,255,0.5); margin: 0; font-size: 12px;">
-                © ${new Date().getFullYear()} LogicMind Test. All rights reserved.<br>
-                This assessment measures aptitude and problem-solving abilities for educational purposes.
+                © ${new Date().getFullYear()} EmotionIQ Test. All rights reserved.<br>
+                This assessment measures emotional intelligence for personal development purposes.
             </p>
         </div>
     </div>
@@ -461,7 +473,7 @@ app.listen(PORT, () => {
     console.log(`
 ╔══════════════════════════════════════════════════════════╗
 ║                                                          ║
-║   🧩 LogicMind Reasoning Test Server                     ║
+║   💖 EmotionIQ Test Server                               ║
 ║                                                          ║
 ║   Server running on http://localhost:${PORT}               ║
 ║                                                          ║

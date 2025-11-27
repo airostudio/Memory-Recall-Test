@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logical Reasoning Test - Discover Your Mental Aptitude</title>
+    <title>Emotional Intelligence Test - Discover Your EQ Power</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
@@ -25,16 +25,16 @@
             <div class="brain-icon">
                 <svg viewBox="0 0 100 100" class="brain-svg">
                     <defs>
-                        <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#FF6B6B"/>
-                            <stop offset="50%" style="stop-color:#4ECDC4"/>
-                            <stop offset="100%" style="stop-color:#45B7D1"/>
+                        <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF6B9D"/>
+                            <stop offset="50%" style="stop-color:#C44569"/>
+                            <stop offset="100%" style="stop-color:#F8B500"/>
                         </linearGradient>
                     </defs>
-                    <path fill="url(#brainGrad)" d="M50 10 C20 10 10 35 15 50 C10 60 15 80 35 85 C40 90 60 90 65 85 C85 80 90 60 85 50 C90 35 80 10 50 10 M30 40 Q35 30 50 35 M70 40 Q65 30 50 35 M35 55 Q50 70 65 55"/>
+                    <path fill="url(#heartGrad)" d="M50 88 C20 60 5 45 5 30 C5 15 20 5 35 5 C42 5 48 8 50 15 C52 8 58 5 65 5 C80 5 95 15 95 30 C95 45 80 60 50 88 Z"/>
                 </svg>
             </div>
-            <span class="logo-text">Logic<span class="highlight">Mind</span></span>
+            <span class="logo-text">Emotion<span class="highlight">IQ</span></span>
         </div>
         <nav class="main-nav">
             <a href="#about">About</a>
@@ -50,10 +50,10 @@
                 <span class="fire">🔥</span> LIMITED TIME OFFER
             </div>
             <h1 class="hero-title">
-                Discover Your <span class="gradient-text">Logical Reasoning</span> Power
+                Discover Your <span class="gradient-text">Emotional Intelligence</span> Power
             </h1>
             <p class="hero-subtitle">
-                Take our world-class aptitude assessment measuring your innate ability to think logically and solve problems. Based on <strong>Abstract, Deductive, Inductive & Spatial Reasoning</strong> methodologies.
+                Take our world-class EQ assessment measuring your ability to understand, manage, and effectively express emotions. Based on <strong>Self-Awareness, Empathy, Social Skills & Emotional Regulation</strong> methodologies.
             </p>
             <div class="price-tag">
                 <span class="original-price">$9.99</span>
@@ -61,16 +61,16 @@
                 <span class="save-badge">Save 70%!</span>
             </div>
             <button class="cta-button start-test-btn" onclick="startTest()">
-                <span class="btn-icon">🧩</span>
-                Start Your Reasoning Test
+                <span class="btn-icon">💖</span>
+                Start Your EQ Assessment
                 <span class="btn-arrow">→</span>
             </button>
             <div class="trust-badges">
                 <div class="trust-item">
-                    <span class="check-icon">✓</span> Predictive Validity
+                    <span class="check-icon">✓</span> Science-Based Assessment
                 </div>
                 <div class="trust-item">
-                    <span class="check-icon">✓</span> Standardized & Objective
+                    <span class="check-icon">✓</span> Instant Results
                 </div>
                 <div class="trust-item">
                     <span class="check-icon">✓</span> Secure Payment
@@ -81,25 +81,28 @@
             <div class="logic-shapes">
                 <div class="shape-orbit orbit1">
                     <svg class="orbit-shape" viewBox="0 0 60 60">
-                        <polygon points="30,5 55,45 5,45" fill="#FF6B6B"/>
+                        <path d="M30 52 C15 40 5 32 5 22 C5 12 15 5 25 5 C28 5 30 7 30 10 C30 7 32 5 35 5 C45 5 55 12 55 22 C55 32 45 40 30 52 Z" fill="#FF6B9D"/>
                     </svg>
                 </div>
                 <div class="shape-orbit orbit2">
                     <svg class="orbit-shape" viewBox="0 0 60 60">
-                        <rect x="10" y="10" width="40" height="40" fill="#4ECDC4"/>
+                        <circle cx="30" cy="30" r="25" fill="#4ECDC4"/>
+                        <text x="30" y="38" text-anchor="middle" fill="white" font-size="24">😊</text>
                     </svg>
                 </div>
                 <div class="shape-orbit orbit3">
                     <svg class="orbit-shape" viewBox="0 0 60 60">
-                        <circle cx="30" cy="30" r="25" fill="#45B7D1"/>
+                        <circle cx="30" cy="30" r="25" fill="#F8B500"/>
+                        <text x="30" y="38" text-anchor="middle" fill="white" font-size="24">🤝</text>
                     </svg>
                 </div>
                 <div class="shape-orbit orbit4">
                     <svg class="orbit-shape" viewBox="0 0 60 60">
-                        <polygon points="30,5 55,25 45,55 15,55 5,25" fill="#F093FB"/>
+                        <circle cx="30" cy="30" r="25" fill="#9B59B6"/>
+                        <text x="30" y="38" text-anchor="middle" fill="white" font-size="24">💭</text>
                     </svg>
                 </div>
-                <div class="center-question">?</div>
+                <div class="center-question">EQ</div>
             </div>
         </div>
     </section>
@@ -107,38 +110,38 @@
     <!-- Test Categories Preview -->
     <section class="test-categories" id="tests">
         <h2 class="section-title">
-            <span class="icon">🧠</span>
-            World-Class Logical Reasoning Assessment
+            <span class="icon">💖</span>
+            Comprehensive Emotional Intelligence Assessment
         </h2>
         <div class="categories-grid">
             <div class="category-card card-abstract">
-                <div class="card-icon">🔷</div>
-                <h3>Abstract Reasoning</h3>
-                <p>Analyze shape patterns and find the next in sequence</p>
-                <div class="card-badge">10 Questions</div>
+                <div class="card-icon">🪞</div>
+                <h3>Self-Awareness</h3>
+                <p>Recognize and understand your own emotions and their effects</p>
+                <div class="card-badge">8 Questions</div>
             </div>
             <div class="category-card card-deductive">
-                <div class="card-icon">🎯</div>
-                <h3>Deductive Reasoning</h3>
-                <p>Draw logical conclusions from given premises</p>
+                <div class="card-icon">🧘</div>
+                <h3>Self-Regulation</h3>
+                <p>Manage disruptive emotions and impulses effectively</p>
                 <div class="card-badge">8 Questions</div>
             </div>
             <div class="category-card card-inductive">
-                <div class="card-icon">🔢</div>
-                <h3>Pattern Recognition</h3>
-                <p>Identify patterns in number and letter sequences</p>
+                <div class="card-icon">🔥</div>
+                <h3>Motivation</h3>
+                <p>Harness emotional drive to achieve goals and stay optimistic</p>
                 <div class="card-badge">8 Questions</div>
             </div>
             <div class="category-card card-verbal">
-                <div class="card-icon">📝</div>
-                <h3>Verbal Reasoning</h3>
-                <p>Analyze text-based scenarios and conclusions</p>
-                <div class="card-badge">6 Questions</div>
+                <div class="card-icon">💕</div>
+                <h3>Empathy</h3>
+                <p>Sense and understand others' feelings and perspectives</p>
+                <div class="card-badge">8 Questions</div>
             </div>
             <div class="category-card card-spatial">
-                <div class="card-icon">📐</div>
-                <h3>Spatial Reasoning</h3>
-                <p>Mental rotation and shape manipulation</p>
+                <div class="card-icon">🤝</div>
+                <h3>Social Skills</h3>
+                <p>Build rapport, communicate effectively, and manage relationships</p>
                 <div class="card-badge">8 Questions</div>
             </div>
         </div>
@@ -150,9 +153,9 @@
             <button class="close-modal" onclick="closeModal('registrationModal')">&times;</button>
             <div class="modal-header">
                 <div class="modal-icon rainbow-bg">
-                    <span>👤</span>
+                    <span>💖</span>
                 </div>
-                <h2>Start Your Reasoning Journey</h2>
+                <h2>Start Your EQ Journey</h2>
                 <p>Enter your details to begin the assessment</p>
             </div>
             <form id="registrationForm" class="registration-form">
@@ -179,7 +182,7 @@
                     <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
                 </div>
                 <button type="submit" class="submit-btn">
-                    <span>Begin Reasoning Test</span>
+                    <span>Begin EQ Assessment</span>
                     <span class="btn-sparkle">✨</span>
                 </button>
             </form>
@@ -196,201 +199,206 @@
                 <span class="progress-text" id="progressText">0% Complete</span>
             </div>
             <div class="test-info">
-                <span class="test-name" id="currentTestName">Abstract Reasoning</span>
+                <span class="test-name" id="currentTestName">Self-Awareness</span>
                 <span class="test-timer" id="testTimer">⏱️ --:--</span>
             </div>
         </div>
 
-        <!-- Test 1: Abstract Reasoning (Shape Patterns) -->
-        <div class="test-section" id="testAbstract" data-test="abstract">
-            <div class="test-intro" id="abstractIntro">
-                <div class="intro-icon">🔷</div>
-                <h2>Abstract Reasoning Test</h2>
-                <p>Analyze the pattern of shapes and find what comes next in the sequence.</p>
+        <!-- Test 1: Self-Awareness -->
+        <div class="test-section" id="testSelfAwareness" data-test="selfawareness">
+            <div class="test-intro" id="selfAwarenessIntro">
+                <div class="intro-icon">🪞</div>
+                <h2>Self-Awareness Assessment</h2>
+                <p>Explore how well you recognize and understand your own emotions, strengths, and weaknesses.</p>
                 <div class="intro-cards">
                     <div class="info-card">
-                        <span class="info-icon">👁️</span>
-                        <span>Study the pattern</span>
+                        <span class="info-icon">💭</span>
+                        <span>Reflect honestly</span>
                     </div>
                     <div class="info-card">
-                        <span class="info-icon">🧠</span>
-                        <span>Find the rule</span>
+                        <span class="info-icon">🎯</span>
+                        <span>Choose what fits you</span>
                     </div>
                     <div class="info-card">
                         <span class="info-icon">✅</span>
-                        <span>Select the answer</span>
+                        <span>Trust your instincts</span>
                     </div>
                 </div>
-                <button class="start-section-btn" onclick="startAbstract()">
-                    <span>Start Abstract Reasoning</span>
+                <button class="start-section-btn" onclick="startSelfAwareness()">
+                    <span>Start Self-Awareness</span>
                     <span class="arrow">→</span>
                 </button>
             </div>
 
-            <div class="test-display" id="abstractDisplay" style="display: none;">
-                <div class="question-counter" id="abstractCounter">Question 1 of 10</div>
-                <h3 class="display-title">What comes next in the sequence?</h3>
-                <div class="pattern-sequence" id="patternSequence">
-                    <!-- SVG patterns will be inserted here -->
+            <div class="test-display" id="selfAwarenessDisplay" style="display: none;">
+                <div class="question-counter" id="selfAwarenessCounter">Question 1 of 8</div>
+                <div class="eq-scenario" id="selfAwarenessScenario">
+                    <!-- Scenario will be inserted here -->
                 </div>
-                <div class="question-mark-box">
-                    <span>?</span>
+                <div class="eq-question" id="selfAwarenessQuestion">
+                    <!-- Question will be inserted here -->
                 </div>
-                <div class="answer-options" id="abstractOptions">
+                <div class="eq-options" id="selfAwarenessOptions">
                     <!-- Answer options will be inserted here -->
                 </div>
             </div>
         </div>
 
-        <!-- Test 2: Deductive Reasoning -->
-        <div class="test-section" id="testDeductive" data-test="deductive" style="display: none;">
-            <div class="test-intro" id="deductiveIntro">
-                <div class="intro-icon">🎯</div>
-                <h2>Deductive Reasoning Test</h2>
-                <p>Read the premises carefully and determine the valid conclusion.</p>
+        <!-- Test 2: Self-Regulation -->
+        <div class="test-section" id="testSelfRegulation" data-test="selfregulation" style="display: none;">
+            <div class="test-intro" id="selfRegulationIntro">
+                <div class="intro-icon">🧘</div>
+                <h2>Self-Regulation Assessment</h2>
+                <p>Discover how effectively you manage and control your emotional responses.</p>
                 <div class="intro-cards">
                     <div class="info-card">
-                        <span class="info-icon">📖</span>
-                        <span>Read the statements</span>
+                        <span class="info-icon">🌊</span>
+                        <span>Stay calm under pressure</span>
                     </div>
                     <div class="info-card">
-                        <span class="info-icon">🔍</span>
-                        <span>Apply logic</span>
+                        <span class="info-icon">⚖️</span>
+                        <span>Balance your reactions</span>
                     </div>
                     <div class="info-card">
                         <span class="info-icon">✅</span>
-                        <span>Choose conclusion</span>
+                        <span>Be authentic</span>
                     </div>
                 </div>
-                <button class="start-section-btn" onclick="startDeductive()">
-                    <span>Start Deductive Reasoning</span>
+                <button class="start-section-btn" onclick="startSelfRegulation()">
+                    <span>Start Self-Regulation</span>
                     <span class="arrow">→</span>
                 </button>
             </div>
 
-            <div class="test-display" id="deductiveDisplay" style="display: none;">
-                <div class="question-counter" id="deductiveCounter">Question 1 of 8</div>
-                <div class="premise-container" id="premiseContainer">
-                    <!-- Premises will be inserted here -->
+            <div class="test-display" id="selfRegulationDisplay" style="display: none;">
+                <div class="question-counter" id="selfRegulationCounter">Question 1 of 8</div>
+                <div class="eq-scenario" id="selfRegulationScenario">
+                    <!-- Scenario will be inserted here -->
                 </div>
-                <h3 class="conclusion-prompt">Which conclusion must be true?</h3>
-                <div class="deductive-options" id="deductiveOptions">
+                <div class="eq-question" id="selfRegulationQuestion">
+                    <!-- Question will be inserted here -->
+                </div>
+                <div class="eq-options" id="selfRegulationOptions">
                     <!-- Options will be inserted here -->
                 </div>
             </div>
         </div>
 
-        <!-- Test 3: Pattern Recognition (Inductive) -->
-        <div class="test-section" id="testPattern" data-test="pattern" style="display: none;">
-            <div class="test-intro" id="patternIntro">
-                <div class="intro-icon">🔢</div>
-                <h2>Pattern Recognition Test</h2>
-                <p>Find the pattern in sequences of numbers or letters.</p>
+        <!-- Test 3: Motivation -->
+        <div class="test-section" id="testMotivation" data-test="motivation" style="display: none;">
+            <div class="test-intro" id="motivationIntro">
+                <div class="intro-icon">🔥</div>
+                <h2>Motivation Assessment</h2>
+                <p>Explore your inner drive, optimism, and commitment to personal goals.</p>
                 <div class="intro-cards">
                     <div class="info-card">
-                        <span class="info-icon">🔍</span>
-                        <span>Examine the sequence</span>
+                        <span class="info-icon">🎯</span>
+                        <span>Goal-driven mindset</span>
                     </div>
                     <div class="info-card">
-                        <span class="info-icon">📈</span>
-                        <span>Identify the pattern</span>
+                        <span class="info-icon">💪</span>
+                        <span>Resilience matters</span>
                     </div>
                     <div class="info-card">
                         <span class="info-icon">✅</span>
-                        <span>Find the next term</span>
+                        <span>Answer honestly</span>
                     </div>
                 </div>
-                <button class="start-section-btn" onclick="startPattern()">
-                    <span>Start Pattern Recognition</span>
+                <button class="start-section-btn" onclick="startMotivation()">
+                    <span>Start Motivation</span>
                     <span class="arrow">→</span>
                 </button>
             </div>
 
-            <div class="test-display" id="patternDisplay" style="display: none;">
-                <div class="question-counter" id="patternCounter">Question 1 of 8</div>
-                <h3 class="display-title">What comes next in this sequence?</h3>
-                <div class="sequence-display" id="sequenceDisplay">
-                    <!-- Sequence will be inserted here -->
+            <div class="test-display" id="motivationDisplay" style="display: none;">
+                <div class="question-counter" id="motivationCounter">Question 1 of 8</div>
+                <div class="eq-scenario" id="motivationScenario">
+                    <!-- Scenario will be inserted here -->
                 </div>
-                <div class="pattern-options" id="patternOptions">
+                <div class="eq-question" id="motivationQuestion">
+                    <!-- Question will be inserted here -->
+                </div>
+                <div class="eq-options" id="motivationOptions">
                     <!-- Options will be inserted here -->
                 </div>
             </div>
         </div>
 
-        <!-- Test 4: Verbal Reasoning -->
-        <div class="test-section" id="testVerbal" data-test="verbal" style="display: none;">
-            <div class="test-intro" id="verbalIntro">
-                <div class="intro-icon">📝</div>
-                <h2>Verbal Reasoning Test</h2>
-                <p>Analyze written information and draw logical conclusions.</p>
+        <!-- Test 4: Empathy -->
+        <div class="test-section" id="testEmpathy" data-test="empathy" style="display: none;">
+            <div class="test-intro" id="empathyIntro">
+                <div class="intro-icon">💕</div>
+                <h2>Empathy Assessment</h2>
+                <p>Discover your ability to understand and share the feelings of others.</p>
                 <div class="intro-cards">
                     <div class="info-card">
-                        <span class="info-icon">📖</span>
-                        <span>Read the passage</span>
+                        <span class="info-icon">👂</span>
+                        <span>Listen deeply</span>
                     </div>
                     <div class="info-card">
-                        <span class="info-icon">🧠</span>
-                        <span>Analyze the logic</span>
+                        <span class="info-icon">👁️</span>
+                        <span>See other perspectives</span>
                     </div>
                     <div class="info-card">
                         <span class="info-icon">✅</span>
-                        <span>Evaluate statements</span>
+                        <span>Feel with others</span>
                     </div>
                 </div>
-                <button class="start-section-btn" onclick="startVerbal()">
-                    <span>Start Verbal Reasoning</span>
+                <button class="start-section-btn" onclick="startEmpathy()">
+                    <span>Start Empathy</span>
                     <span class="arrow">→</span>
                 </button>
             </div>
 
-            <div class="test-display" id="verbalDisplay" style="display: none;">
-                <div class="question-counter" id="verbalCounter">Question 1 of 6</div>
-                <div class="passage-container" id="passageContainer">
-                    <!-- Passage will be inserted here -->
+            <div class="test-display" id="empathyDisplay" style="display: none;">
+                <div class="question-counter" id="empathyCounter">Question 1 of 8</div>
+                <div class="eq-scenario" id="empathyScenario">
+                    <!-- Scenario will be inserted here -->
                 </div>
-                <div class="statement-container" id="statementContainer">
-                    <!-- Statement will be inserted here -->
+                <div class="eq-question" id="empathyQuestion">
+                    <!-- Question will be inserted here -->
                 </div>
-                <div class="verbal-options" id="verbalOptions">
-                    <!-- Options: True, False, Cannot Say -->
+                <div class="eq-options" id="empathyOptions">
+                    <!-- Options will be inserted here -->
                 </div>
             </div>
         </div>
 
-        <!-- Test 5: Spatial Reasoning -->
-        <div class="test-section" id="testSpatial" data-test="spatial" style="display: none;">
-            <div class="test-intro" id="spatialIntro">
-                <div class="intro-icon">📐</div>
-                <h2>Spatial Reasoning Test</h2>
-                <p>Visualize shapes, rotations, and transformations mentally.</p>
+        <!-- Test 5: Social Skills -->
+        <div class="test-section" id="testSocialSkills" data-test="socialskills" style="display: none;">
+            <div class="test-intro" id="socialSkillsIntro">
+                <div class="intro-icon">🤝</div>
+                <h2>Social Skills Assessment</h2>
+                <p>Evaluate your ability to build relationships, communicate, and work with others.</p>
                 <div class="intro-cards">
                     <div class="info-card">
-                        <span class="info-icon">🔄</span>
-                        <span>Mental rotation</span>
+                        <span class="info-icon">💬</span>
+                        <span>Communication style</span>
                     </div>
                     <div class="info-card">
-                        <span class="info-icon">🧩</span>
-                        <span>Shape matching</span>
+                        <span class="info-icon">🤝</span>
+                        <span>Building rapport</span>
                     </div>
                     <div class="info-card">
                         <span class="info-icon">✅</span>
-                        <span>Select the match</span>
+                        <span>Team dynamics</span>
                     </div>
                 </div>
-                <button class="start-section-btn" onclick="startSpatial()">
-                    <span>Start Spatial Reasoning</span>
+                <button class="start-section-btn" onclick="startSocialSkills()">
+                    <span>Start Social Skills</span>
                     <span class="arrow">→</span>
                 </button>
             </div>
 
-            <div class="test-display" id="spatialDisplay" style="display: none;">
-                <div class="question-counter" id="spatialCounter">Question 1 of 8</div>
-                <h3 class="display-title" id="spatialTitle">Which shape is the rotation of the original?</h3>
-                <div class="spatial-question" id="spatialQuestion">
-                    <!-- Original shape will be inserted here -->
+            <div class="test-display" id="socialSkillsDisplay" style="display: none;">
+                <div class="question-counter" id="socialSkillsCounter">Question 1 of 8</div>
+                <div class="eq-scenario" id="socialSkillsScenario">
+                    <!-- Scenario will be inserted here -->
                 </div>
-                <div class="spatial-options" id="spatialOptions">
+                <div class="eq-question" id="socialSkillsQuestion">
+                    <!-- Question will be inserted here -->
+                </div>
+                <div class="eq-options" id="socialSkillsOptions">
                     <!-- Options will be inserted here -->
                 </div>
             </div>
@@ -401,12 +409,12 @@
             <div class="complete-content">
                 <div class="complete-icon">🎉</div>
                 <h2>Assessment Complete!</h2>
-                <p>Your logical reasoning analysis is ready.</p>
+                <p>Your emotional intelligence analysis is ready.</p>
                 <div class="score-preview">
                     <div class="score-circle">
                         <span class="score-question">?</span>
                     </div>
-                    <p>Pay to unlock your detailed results</p>
+                    <p>Pay to unlock your detailed EQ results</p>
                 </div>
                 <div class="payment-prompt">
                     <div class="price-display">
@@ -416,7 +424,7 @@
                     <p class="payment-info">One-time payment • Results emailed instantly</p>
                     <button class="pay-button" onclick="initiatePayment()">
                         <span class="lock-icon">🔓</span>
-                        Unlock My Results - $2.99
+                        Unlock My EQ Results - $2.99
                     </button>
                     <div class="secure-badge">
                         <span>🔒</span> Secure payment powered by Stripe
@@ -431,16 +439,16 @@
         <div class="modal-content payment-modal">
             <button class="close-modal" onclick="closeModal('paymentModal')">&times;</button>
             <div class="payment-header">
-                <h2>🔓 Unlock Your Results</h2>
+                <h2>🔓 Unlock Your EQ Results</h2>
                 <div class="payment-price">
                     <span class="strikethrough">$9.99</span>
                     <span class="final-price">$2.99</span>
                 </div>
             </div>
             <div class="payment-benefits">
-                <div class="benefit">✅ Detailed reasoning score analysis</div>
+                <div class="benefit">✅ Detailed EQ score analysis</div>
                 <div class="benefit">✅ Comparison with percentile rankings</div>
-                <div class="benefit">✅ Strength & weakness breakdown</div>
+                <div class="benefit">✅ Strength & growth area breakdown</div>
                 <div class="benefit">✅ Results sent to your email</div>
             </div>
             <form id="payment-form">
@@ -466,13 +474,13 @@
                 <div class="checkmark">✓</div>
             </div>
             <h2>Payment Successful!</h2>
-            <p>Your detailed results have been sent to:</p>
+            <p>Your detailed EQ results have been sent to:</p>
             <p class="email-sent" id="emailSentTo"></p>
             <div class="success-message">
-                <p>Check your inbox for your comprehensive logical reasoning assessment report!</p>
+                <p>Check your inbox for your comprehensive emotional intelligence assessment report!</p>
             </div>
             <div class="more-tests-promo">
-                <h3>🎯 Discover More About Your Mind</h3>
+                <h3>💖 Discover More About Your Mind</h3>
                 <p>Explore our collection of 20+ cognitive assessments</p>
                 <button class="view-tests-btn" onclick="showMoreTests()">
                     View All Tests →
@@ -486,8 +494,8 @@
         <div class="modal-content more-tests-modal">
             <button class="close-modal" onclick="closeModal('moreTestsModal')">&times;</button>
             <div class="more-tests-header">
-                <h2>🧠 Explore Our Test Collection</h2>
-                <p>20 specialized cognitive assessments to discover your mental strengths</p>
+                <h2>💖 Explore Our Test Collection</h2>
+                <p>20 specialized assessments to discover your mental and emotional strengths</p>
             </div>
             <div class="tests-grid" id="testsGrid">
                 <!-- Tests will be inserted by JS -->
@@ -499,8 +507,8 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <span class="footer-logo">🧩 LogicMind</span>
-                <p>World-class logical reasoning assessments</p>
+                <span class="footer-logo">💖 EmotionIQ</span>
+                <p>World-class emotional intelligence assessments</p>
             </div>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a>
@@ -512,7 +520,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 LogicMind Test. All rights reserved.</p>
+            <p>&copy; 2024 EmotionIQ Test. All rights reserved.</p>
         </div>
     </footer>
 
