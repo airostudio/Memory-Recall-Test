@@ -1,25 +1,25 @@
 {
-  "name": "emotional-intelligence-tester",
+  "name": "logical-reasoning-tester",
   "version": "1.0.0",
-  "description": "Emotional Intelligence (EQ) Tester - Comprehensive assessment measuring Self-Awareness, Self-Regulation, Motivation, Empathy, and Social Skills",
+  "description": "Logical Reasoning Tester - Comprehensive assessment measuring Abstract Reasoning, Deductive Logic, Pattern Recognition, and Analytical Thinking",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [
-    "emotional-intelligence",
-    "EQ-test",
-    "self-awareness",
-    "empathy",
-    "social-skills",
-    "self-regulation",
-    "motivation",
-    "psychology",
-    "personal-development",
-    "soft-skills"
+    "logical-reasoning",
+    "logic-test",
+    "abstract-reasoning",
+    "deductive-reasoning",
+    "pattern-recognition",
+    "analytical-thinking",
+    "aptitude-test",
+    "cognitive-assessment",
+    "problem-solving",
+    "critical-thinking"
   ],
-  "author": "EmotionIQ Test Inc.",
+  "author": "LogicMind Test Inc.",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
