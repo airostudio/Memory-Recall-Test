@@ -27,69 +27,101 @@ const state = {
 };
 
 // ============================================
-// SVG Shape Generators
+// SVG Shape Generators - Professional with Gradients
 // ============================================
 
 const colors = {
-    blue: '#667eea',
-    purple: '#764ba2',
-    teal: '#00d4aa',
-    pink: '#f093fb',
-    orange: '#F8B500',
-    red: '#f5576c',
-    green: '#00b894'
+    blue: '#2563eb',
+    purple: '#7c3aed',
+    teal: '#0891b2',
+    pink: '#db2777',
+    orange: '#ea580c',
+    red: '#dc2626',
+    green: '#059669'
 };
 
+const gradients = {
+    blue: ['#3b82f6', '#1d4ed8'],
+    purple: ['#8b5cf6', '#6d28d9'],
+    teal: ['#06b6d4', '#0e7490'],
+    pink: ['#ec4899', '#be185d'],
+    orange: ['#f97316', '#c2410c'],
+    red: ['#ef4444', '#b91c1c'],
+    green: ['#10b981', '#047857']
+};
+
+function getGradientDef(color, id) {
+    const grad = gradients[Object.keys(colors).find(k => colors[k] === color)] || ['#64748b', '#475569'];
+    return `<defs><linearGradient id="${id}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:${grad[0]}"/><stop offset="100%" style="stop-color:${grad[1]}"/></linearGradient></defs>`;
+}
+
 function createTriangle(color, rotation = 0, size = 'medium') {
-    const sizes = { small: '25,45 5,45 15,10', medium: '30,50 5,50 17.5,5', large: '35,55 0,55 17.5,0' };
-    return `<svg viewBox="0 0 60 60"><polygon points="${sizes[size]}" fill="${color}" transform="rotate(${rotation} 30 30)"/></svg>`;
+    const sizes = { small: '30,42 10,42 20,15', medium: '30,48 6,48 18,8', large: '30,52 4,52 17,4' };
+    const id = `tri_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<polygon points="${sizes[size]}" fill="url(#${id})" transform="rotate(${rotation} 30 30)" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 function createSquare(color, rotation = 0, size = 'medium') {
-    const sizes = { small: { x: 15, y: 15, w: 30, h: 30 }, medium: { x: 10, y: 10, w: 40, h: 40 }, large: { x: 5, y: 5, w: 50, h: 50 } };
+    const sizes = { small: { x: 16, y: 16, w: 28, h: 28 }, medium: { x: 12, y: 12, w: 36, h: 36 }, large: { x: 8, y: 8, w: 44, h: 44 } };
     const s = sizes[size];
-    return `<svg viewBox="0 0 60 60"><rect x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" fill="${color}" transform="rotate(${rotation} 30 30)"/></svg>`;
+    const id = `sq_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<rect x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" rx="3" fill="url(#${id})" transform="rotate(${rotation} 30 30)" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 function createCircle(color, size = 'medium') {
-    const sizes = { small: 12, medium: 20, large: 25 };
-    return `<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="${sizes[size]}" fill="${color}"/></svg>`;
+    const sizes = { small: 13, medium: 18, large: 23 };
+    const id = `ci_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<circle cx="30" cy="30" r="${sizes[size]}" fill="url(#${id})" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 function createDiamond(color, size = 'medium') {
-    const sizes = { small: '30,10 45,30 30,50 15,30', medium: '30,5 50,30 30,55 10,30', large: '30,2 55,30 30,58 5,30' };
-    return `<svg viewBox="0 0 60 60"><polygon points="${sizes[size]}" fill="${color}"/></svg>`;
+    const sizes = { small: '30,12 44,30 30,48 16,30', medium: '30,8 48,30 30,52 12,30', large: '30,5 52,30 30,55 8,30' };
+    const id = `di_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<polygon points="${sizes[size]}" fill="url(#${id})" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 function createStar(color, size = 'medium') {
-    const scales = { small: 0.6, medium: 0.8, large: 1 };
-    const s = scales[size];
-    return `<svg viewBox="0 0 60 60"><polygon points="${30},${5*s + 10} ${35*s + 12},${55*s} ${5},${22*s + 10} ${55},${22*s + 10} ${25*s - 12},${55*s}" fill="${color}"/></svg>`;
+    const scales = { small: 0.65, medium: 0.8, large: 0.95 };
+    const sc = scales[size];
+    const id = `st_${Math.random().toString(36).substr(2, 9)}`;
+    const cx = 30, cy = 30;
+    const points = [];
+    for (let i = 0; i < 5; i++) {
+        const outerAngle = (i * 72 - 90) * Math.PI / 180;
+        const innerAngle = ((i * 72) + 36 - 90) * Math.PI / 180;
+        points.push(`${cx + 22 * sc * Math.cos(outerAngle)},${cy + 22 * sc * Math.sin(outerAngle)}`);
+        points.push(`${cx + 10 * sc * Math.cos(innerAngle)},${cy + 10 * sc * Math.sin(innerAngle)}`);
+    }
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<polygon points="${points.join(' ')}" fill="url(#${id})" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 function createPentagon(color, size = 'medium') {
-    const sizes = { small: '30,12 45,25 40,45 20,45 15,25', medium: '30,8 50,23 43,50 17,50 10,23', large: '30,5 55,22 46,55 14,55 5,22' };
-    return `<svg viewBox="0 0 60 60"><polygon points="${sizes[size]}" fill="${color}"/></svg>`;
+    const sizes = { small: '30,14 43,24 39,42 21,42 17,24', medium: '30,10 47,22 42,47 18,47 13,22', large: '30,7 50,21 44,50 16,50 10,21' };
+    const id = `pe_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<polygon points="${sizes[size]}" fill="url(#${id})" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 function createHexagon(color, size = 'medium') {
-    const sizes = { small: '30,10 45,18 45,38 30,46 15,38 15,18', medium: '30,5 50,17 50,43 30,55 10,43 10,17', large: '30,2 55,15 55,45 30,58 5,45 5,15' };
-    return `<svg viewBox="0 0 60 60"><polygon points="${sizes[size]}" fill="${color}"/></svg>`;
+    const sizes = { small: '30,12 43,19 43,37 30,44 17,37 17,19', medium: '30,8 47,17 47,43 30,52 13,43 13,17', large: '30,5 50,15 50,45 30,55 10,45 10,15' };
+    const id = `he_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<polygon points="${sizes[size]}" fill="url(#${id})" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 function createCross(color, size = 'medium') {
     const sizes = {
-        small: { x1: 22, y1: 10, w1: 16, h1: 40, x2: 10, y2: 22, w2: 40, h2: 16 },
-        medium: { x1: 20, y1: 5, w1: 20, h1: 50, x2: 5, y2: 20, w2: 50, h2: 20 },
-        large: { x1: 18, y1: 2, w1: 24, h1: 56, x2: 2, y2: 18, w2: 56, h2: 24 }
+        small: { x1: 23, y1: 12, w1: 14, h1: 36, x2: 12, y2: 23, w2: 36, h2: 14 },
+        medium: { x1: 21, y1: 8, w1: 18, h1: 44, x2: 8, y2: 21, w2: 44, h2: 18 },
+        large: { x1: 19, y1: 5, w1: 22, h1: 50, x2: 5, y2: 19, w2: 50, h2: 22 }
     };
     const s = sizes[size];
-    return `<svg viewBox="0 0 60 60"><rect x="${s.x1}" y="${s.y1}" width="${s.w1}" height="${s.h1}" fill="${color}"/><rect x="${s.x2}" y="${s.y2}" width="${s.w2}" height="${s.h2}" fill="${color}"/></svg>`;
+    const id = `cr_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<rect x="${s.x1}" y="${s.y1}" width="${s.w1}" height="${s.h1}" rx="2" fill="url(#${id})" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/><rect x="${s.x2}" y="${s.y2}" width="${s.w2}" height="${s.h2}" rx="2" fill="url(#${id})"/></svg>`;
 }
 
 function createArrow(color, direction = 'right') {
     const rotations = { right: 0, down: 90, left: 180, up: 270 };
-    return `<svg viewBox="0 0 60 60"><polygon points="10,25 35,25 35,15 55,30 35,45 35,35 10,35" fill="${color}" transform="rotate(${rotations[direction]} 30 30)"/></svg>`;
+    const id = `ar_${Math.random().toString(36).substr(2, 9)}`;
+    return `<svg viewBox="0 0 60 60">${getGradientDef(color, id)}<polygon points="12,26 34,26 34,17 52,30 34,43 34,34 12,34" fill="url(#${id})" transform="rotate(${rotations[direction]} 30 30)" style="filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/></svg>`;
 }
 
 // ============================================
@@ -527,28 +559,28 @@ const analyticalQuestions = [
     }
 ];
 
-// 20 Additional Test Offers
+// 20 Additional Test Offers - All $1.99
 const additionalTests = [
-    { id: 1, name: 'Emotional Intelligence Test', icon: '💖', desc: 'Measure your EQ and emotional awareness', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 2, name: 'Verbal Reasoning Test', icon: '📚', desc: 'Evaluate language comprehension skills', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 3, name: 'Numerical Reasoning Test', icon: '🔢', desc: 'Test mathematical problem-solving', originalPrice: 12.99, currentPrice: 4.99 },
-    { id: 4, name: 'Spatial Reasoning Test', icon: '🎯', desc: 'Assess 3D visualization abilities', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 5, name: 'Critical Thinking Test', icon: '🤔', desc: 'Evaluate analytical decision making', originalPrice: 14.99, currentPrice: 5.99 },
-    { id: 6, name: 'Memory Assessment', icon: '🧠', desc: 'Test short and long-term memory', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 7, name: 'Personality Type Test', icon: '🎭', desc: 'Discover your personality profile', originalPrice: 11.99, currentPrice: 4.49 },
-    { id: 8, name: 'Leadership Potential Test', icon: '👔', desc: 'Assess your leadership qualities', originalPrice: 14.99, currentPrice: 5.99 },
-    { id: 9, name: 'Creativity Assessment', icon: '🎨', desc: 'Measure creative thinking abilities', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 10, name: 'Stress Resilience Test', icon: '🧘', desc: 'Evaluate your stress management', originalPrice: 11.99, currentPrice: 4.49 },
-    { id: 11, name: 'Problem Solving Test', icon: '🧩', desc: 'Test systematic problem-solving', originalPrice: 14.99, currentPrice: 5.99 },
-    { id: 12, name: 'Attention to Detail Test', icon: '🔍', desc: 'Assess precision and accuracy', originalPrice: 12.99, currentPrice: 4.99 },
-    { id: 13, name: 'Career Aptitude Test', icon: '💼', desc: 'Find your ideal career path', originalPrice: 19.99, currentPrice: 7.99 },
-    { id: 14, name: 'Communication Skills Test', icon: '💬', desc: 'Evaluate interpersonal skills', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 15, name: 'Time Management Test', icon: '⏰', desc: 'Assess productivity habits', originalPrice: 12.99, currentPrice: 4.99 },
-    { id: 16, name: 'Decision Making Test', icon: '⚖️', desc: 'Test judgment under pressure', originalPrice: 9.99, currentPrice: 3.99 },
-    { id: 17, name: 'Learning Style Assessment', icon: '📖', desc: 'Discover how you learn best', originalPrice: 14.99, currentPrice: 5.99 },
-    { id: 18, name: 'Mechanical Reasoning Test', icon: '⚙️', desc: 'Test understanding of mechanics', originalPrice: 7.99, currentPrice: 2.99 },
-    { id: 19, name: 'Situational Judgment Test', icon: '🎬', desc: 'Assess workplace judgment', originalPrice: 19.99, currentPrice: 7.99 },
-    { id: 20, name: 'Complete Logic Package', icon: '🧠', desc: 'All logical reasoning tests combined', originalPrice: 29.99, currentPrice: 12.99 }
+    { id: 1, name: 'Emotional Intelligence Test', icon: '💖', desc: 'Measure your EQ and emotional awareness', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 2, name: 'Verbal Reasoning Test', icon: '📚', desc: 'Evaluate language comprehension skills', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 3, name: 'Numerical Reasoning Test', icon: '🔢', desc: 'Test mathematical problem-solving', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 4, name: 'Spatial Reasoning Test', icon: '🎯', desc: 'Assess 3D visualization abilities', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 5, name: 'Critical Thinking Test', icon: '🤔', desc: 'Evaluate analytical decision making', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 6, name: 'Memory Assessment', icon: '🧠', desc: 'Test short and long-term memory', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 7, name: 'Personality Type Test', icon: '🎭', desc: 'Discover your personality profile', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 8, name: 'Leadership Potential Test', icon: '👔', desc: 'Assess your leadership qualities', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 9, name: 'Creativity Assessment', icon: '🎨', desc: 'Measure creative thinking abilities', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 10, name: 'Stress Resilience Test', icon: '🧘', desc: 'Evaluate your stress management', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 11, name: 'Problem Solving Test', icon: '🧩', desc: 'Test systematic problem-solving', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 12, name: 'Attention to Detail Test', icon: '🔍', desc: 'Assess precision and accuracy', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 13, name: 'Career Aptitude Test', icon: '💼', desc: 'Find your ideal career path', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 14, name: 'Communication Skills Test', icon: '💬', desc: 'Evaluate interpersonal skills', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 15, name: 'Time Management Test', icon: '⏰', desc: 'Assess productivity habits', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 16, name: 'Decision Making Test', icon: '⚖️', desc: 'Test judgment under pressure', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 17, name: 'Learning Style Assessment', icon: '📖', desc: 'Discover how you learn best', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 18, name: 'Mechanical Reasoning Test', icon: '⚙️', desc: 'Test understanding of mechanics', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 19, name: 'Situational Judgment Test', icon: '🎬', desc: 'Assess workplace judgment', originalPrice: 9.99, currentPrice: 1.99 },
+    { id: 20, name: 'Complete Test Bundle', icon: '📦', desc: 'Access to all 20 cognitive assessments', originalPrice: 29.99, currentPrice: 9.99 }
 ];
 
 // ============================================
@@ -1077,7 +1109,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     } catch (error) {
         document.getElementById('card-errors').textContent = error.message;
         submitButton.disabled = false;
-        buttonText.textContent = 'Pay $2.99';
+        buttonText.textContent = 'Pay $1.99';
         spinner.classList.add('hidden');
     }
 });
